@@ -24,7 +24,7 @@ public class Hall
 	private int number;
 
 	@ManyToOne
-	@JoinColumn(name = "cinema_id")
+	@JoinColumn(name = "cinema_id", nullable = false)
 	private Cinema cinema;
 
 	@OneToMany(mappedBy = "hall")
@@ -79,5 +79,5 @@ public class Hall
 	{
 		this.seats = seats;
 	}
-	
+
 }

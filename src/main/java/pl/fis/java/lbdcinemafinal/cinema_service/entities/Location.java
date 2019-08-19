@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Location
@@ -11,17 +12,17 @@ public class Location
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@NotEmpty
 	private String city;
-	
+
 	@NotEmpty
 	private String address;
-	
-	@NotEmpty
+
+	@NotNull
 	private Double longitude;
-	
-	@NotEmpty
+
+	@NotNull
 	private Double latitude;
 
 	public Long getId()
@@ -73,5 +74,5 @@ public class Location
 	{
 		this.latitude = latitude;
 	}
-	
+
 }

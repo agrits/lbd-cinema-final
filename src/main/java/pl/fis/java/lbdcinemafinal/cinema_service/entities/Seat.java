@@ -16,7 +16,7 @@ public class Seat
 	private Long id;
 
 	@NotNull
-	@Column(nullable = false)
+	@Column(name = "seat_row", nullable = false)
 	private int row;
 
 	@NotNull
@@ -67,5 +67,5 @@ public class Seat
 	{
 		this.hall = hall;
 	}
-	
+
 }

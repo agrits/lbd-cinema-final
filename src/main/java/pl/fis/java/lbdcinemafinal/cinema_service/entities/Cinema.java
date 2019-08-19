@@ -25,10 +25,10 @@ public class Cinema
 
 	@NotNull
 	@OneToOne
-	@JoinColumn(name = "location", nullable = false)
+	@JoinColumn(name = "location_id", nullable = false)
 	private Location location;
-	
-	@OneToMany(mappedBy="cinema")
+
+	@OneToMany(mappedBy = "cinema")
 	private List<Hall> halls;
 
 	public List<Hall> getHalls()
