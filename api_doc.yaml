@@ -1,0 +1,67 @@
+paths:
+  /api:
+    get:
+      operationId: api_get
+      summary: 'returns available resources'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            x-oad-type: array
+            type: array
+            title: resources
+          x-oad-type: response
+    x-oad-type: operation
+  /api/cinemas:
+    get:
+      summary: 'returns a list of cinemas'
+      responses:
+        '200':
+          description: OK
+          x-oad-type: response
+    x-oad-type: operation
+  /api/verify:
+    post:
+      summary: 'send credentials to perform sign in or sign up'
+      responses:
+        '200':
+          description: OK
+          x-oad-type: response
+    x-oad-type: operation
+  /api/movies:
+    get:
+      summary: 'get list of all movies'
+      responses:
+        '200':
+          description: OK
+          schema:
+            x-oad-type: array
+            type: array
+          x-oad-type: response
+    x-oad-type: operation
+  '/api/cinema/{id}/show':
+    x-oad-type: operation
+  '/api/cinemas/{id}':
+    get:
+      summary: 'get a particular cinema by id'
+      responses: {}
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+          x-oad-type: parameter
+    x-oad-type: operation
+  '/api/shows/{id}/reservations':
+    x-oad-type: operation
+  '/api/reservations/{id}':
+    x-oad-type: operation
+  '/api/user/{id}/reservations':
+    x-oad-type: operation
+  '/api/service/{name}/{res_name}':
+    x-oad-type: operation
+  /api/discounts:
+    x-oad-type: operation
+basePath: /
+swagger: '2.0'
