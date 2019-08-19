@@ -7,16 +7,22 @@ import { RouterModule } from "@angular/router";
 import { RegisterComponent } from "./user/register/register.component";
 import { UserModule } from "./user/user.module";
 import { LoginComponent } from "./user/login/login.component";
+import { CinemaModule } from "./cinema/cinema.module";
+import { MoviesComponent } from "./cinema/movies/movies.component";
+import { RepertoireComponent } from "./cinema/repertoire/repertoire.component";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    UserModule,
     BrowserModule,
     AppRoutingModule,
+    UserModule,
+    CinemaModule,
     RouterModule.forRoot([
       { path: "register", component: RegisterComponent },
-      { path: "login", component: LoginComponent }
+      { path: "login", component: LoginComponent },
+      { path: "movies", component: MoviesComponent },
+      { path: "repertoire", component: RepertoireComponent }
     ])
   ],
   providers: [],
