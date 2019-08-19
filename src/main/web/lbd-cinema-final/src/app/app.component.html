@@ -1,11 +1,11 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" [routerLink]="['/']">FIS-SST Cinemas</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a [routerLink]="['/movies']">Filmy</a></li>
-      <<li class="active"><a [routerLink]="['/movies']">Repertuar</a></li>
+      <li class="active"><a [routerLink]="['/repertoire']">Repertuar</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span> Rejestracja</a></li>
@@ -13,3 +13,4 @@
     </ul>
   </div>
 </nav>
+<router-outlet></router-outlet>
