@@ -1,0 +1,29 @@
+.profile-teaser-left {
+  float: left;
+  width: 300%;
+  margin-right: 1%;
+}
+
+.profile-teaser-main {
+  float: left;
+  width: 100%;
+  position: center;
+}
+
+.info {
+  display: inline-block;
+  margin-right: 10px;
+  color: #777;
+}
+.info span {
+  font-weight: bold;
+}
+.list-group-item {
+  width: 450%;
+}
+.profile-info {
+  margin-left: 10%;
+}
+.profile-name {
+  font-size: 180%;
+}

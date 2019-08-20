@@ -1,5 +1,23 @@
 <div id="content">
     <div class="container">
-        <h3>Movies works!</h3>
+        <div class="row" *ngFor="let movie of movies">
+            <div class="col-md-3">
+                <ul class="list-group">
+                    <div class="list-group-item clearfix">
+                        <div class="profile-teaser-main">
+                            <h3 class="profile-name">{{movie.title}}</h3>
+                            <div class="profile-info">
+                                <div class="info"><span class="">Długość filmu:</span> {{movie.duration}} minut </div>
+                                <br>
+                                <div class="info"><span class="">Rating:</span> {{movie.rating}} / 10 </div><br>
+                                <div class="info"><span class="">PEGI:</span> {{movie.pegi}}</div><br>
+                                <div class="info"><span class="">Kategoria :</span> {{movie.category.name}}</div><br>
+                                <div class="info"><span class="">Opis filmu :</span> {{movie.description}}</div><br>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

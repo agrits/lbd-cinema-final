@@ -7,10 +7,10 @@ import { Credentials } from "src/app/data-entity/credentials/credentials";
 })
 export class CredentialsService {
   constructor(private httpClient: HttpClient) {}
-  expensesUrl: string = "/api/credentials";
+  credentialsUrl: string = "/api/credentials";
 
   postCredentials(credentials: Credentials): Observable<any> {
-    return this.httpClient.post<Credentials>(this.expensesUrl, credentials, {
+    return this.httpClient.post<Credentials>(this.credentialsUrl, credentials, {
       observe: "response"
     });
   }
