@@ -6,6 +6,7 @@ import pl.fis.java.lbdcinemafinal.reservation_service.entity.ticket.model.Ticket
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ public class Reservation {
     private Long showId;
 
     @NotNull
+    @PastOrPresent
     @Column(nullable = false)
     private LocalDateTime time;
 

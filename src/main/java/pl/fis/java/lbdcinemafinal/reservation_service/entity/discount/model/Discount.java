@@ -3,9 +3,7 @@ package pl.fis.java.lbdcinemafinal.reservation_service.entity.discount.model;
 import pl.fis.java.lbdcinemafinal.reservation_service.entity.ticket.model.Ticket;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 /**
@@ -25,8 +23,10 @@ public class Discount {
     private String name;
 
     @NotNull
+    @Positive(message = "not a valid percentage rate")
+    @Max(value = 100, message = "not a valid percentage rate")
     @Column(nullable = false)
-    private Double amount;
+    private Integer amount;
 
     @OneToMany(mappedBy = "discount", fetch = FetchType.LAZY)
     private Set<Ticket> tickets;
@@ -47,11 +47,11 @@ public class Discount {
         this.name = name;
     }
 
-    public Double getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
