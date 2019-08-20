@@ -17,5 +17,11 @@ zuul:
 #      stripPrefix: false
 #      sensitiveHeaders:
 
-server:
-  port: 8080
+      cinema-service:
+        path: /service/cinema-service/**		#path that will be intercepted
+        url: cinema-service 	#which url the request will e mapped to
+        stripPrefix: false 	#if zuul should replace the "/uaa/" segment
+        sensitiveHeaders:
+
+  server:
+    port: 8080
