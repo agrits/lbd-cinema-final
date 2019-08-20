@@ -17,5 +17,19 @@ zuul:
 #      stripPrefix: false
 #      sensitiveHeaders:
 
+    movie-service:
+      path: /movie_api/**        #path that will be intercepted
+      url: movie-service    #which url the request will e mapped to
+      stripPrefix: false    #if zuul should replace the "/uaa/" segment
+      sensitiveHeaders:
+
+    show-service:
+      path: /show_api/**        #path that will be intercepted
+      url: show-service    #which url the request will e mapped to
+      stripPrefix: false    #if zuul should replace the "/uaa/" segment
+      sensitiveHeaders:
+
+
+
 server:
   port: 8080
