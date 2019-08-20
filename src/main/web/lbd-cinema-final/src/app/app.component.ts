@@ -7,7 +7,16 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   chosenCity: string = "Gliwice";
-  cities: string[] = ["Katowice", "Gliwice", "Rzeszów", "Warszawa"];
+  cities: string[] = [
+    "Katowice",
+    "Gliwice",
+    "Rzeszów",
+    "Warszawa",
+    "Poznań",
+    "Wrocław",
+    "Gdańsk",
+    "Szczecin"
+  ];
   title = "FIS-SST Cinema";
   ngOnInit(): void {}
   cityClicked(event) {

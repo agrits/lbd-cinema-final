@@ -61,7 +61,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lbd-cinema-final:build"
+            "browserTarget": "lbd-cinema-final:build",
+            "proxyConfig": "api/proxy.conf.json"
           },
           "configurations": {
             "production": {

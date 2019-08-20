@@ -9,8 +9,9 @@ import { UserModule } from "./user/user.module";
 import { LoginComponent } from "./user/login/login.component";
 import { CinemaModule } from "./cinema/cinema.module";
 import { RepertoireComponent } from "./cinema/repertoire/repertoire.component";
-import { MoviesComponent } from './cinema/movies/movies.component';
-
+import { MoviesComponent } from "./cinema/movies/movies.component";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,6 +19,8 @@ import { MoviesComponent } from './cinema/movies/movies.component';
     AppRoutingModule,
     UserModule,
     CinemaModule,
+    FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: "register", component: RegisterComponent },
       { path: "login", component: LoginComponent },
