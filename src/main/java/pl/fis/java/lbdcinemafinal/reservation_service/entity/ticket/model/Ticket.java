@@ -1,5 +1,6 @@
 package pl.fis.java.lbdcinemafinal.reservation_service.entity.ticket.model;
 
+import org.springframework.data.rest.core.annotation.RestResource;
 import pl.fis.java.lbdcinemafinal.reservation_service.entity.discount.model.Discount;
 import pl.fis.java.lbdcinemafinal.reservation_service.entity.reservation.model.Reservation;
 
@@ -18,6 +19,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @RestResource(exported = false)
     @NotNull
     @Column(name = "seat_id")
     private Long seatId;

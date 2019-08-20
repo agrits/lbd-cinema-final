@@ -1,5 +1,6 @@
 package pl.fis.java.lbdcinemafinal.reservation_service.entity.reservation.model;
 
+import org.springframework.data.rest.core.annotation.RestResource;
 import pl.fis.java.lbdcinemafinal.reservation_service.entity.ticket.model.Ticket;
 
 import javax.persistence.*;
@@ -20,19 +21,21 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @RestResource(exported = false)
     @NotNull
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    @RestResource(exported = false)
     @NotNull
     @Column(name = "show_id", nullable = false)
     private Long showId;
 
     @NotNull
-    @Column(name = "reservation_date", nullable = false)
-    private LocalDateTime reservationDate;
+    @Column(nullable = false)
+    private LocalDateTime time;
 
-    @OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Ticket> tickets;
 
     public Long getId() {
@@ -59,12 +62,12 @@ public class Reservation {
         this.showId = showId;
     }
 
-    public LocalDateTime getReservationDate() {
-        return reservationDate;
+    public LocalDateTime getTime() {
+        return time;
     }
 
-    public void setReservationDate(LocalDateTime reservationDate) {
-        this.reservationDate = reservationDate;
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     public Set<Ticket> getTickets() {
