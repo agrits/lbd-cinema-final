@@ -6,6 +6,6 @@ for filename in $filenames; do
   filename="${filename%.*}"
   echo "\"$filename\": $content," >> "db.json"
 done
-echo -e "\r\b}" >> db.json
+echo "}" >> db.json
 
 unset GLOBIGNORE
