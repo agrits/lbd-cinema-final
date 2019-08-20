@@ -1,0 +1,6 @@
+[
+{"id": 1, "name": "Student", "amount": 50},
+{"id": 2, "name": "Elder", "amount": 50},
+{"id": 3, "name": "Disabled", "amount": 70},
+{"id": 4, "name": "Veteran", "amount": 90}
+]

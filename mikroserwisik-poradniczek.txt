@@ -1,0 +1,127 @@
+Sta³e: 	{NAME} - nazwa naszego mikroserwisu
+	{PORT} - port naszego mikroserwisu zapisany na tablicy
+	{PATH} - œcie¿ka pod któr¹ chcemy siê odwo³ywaæ do endpointów naszego mikroserwisu (podczas testowania, ale raczej unikajcie api)
+
+sta³e piszemy be¿ ¿adnych cudzys³owów i nawiasów
+
+1. Generacja projektu mikroserwisu przez initializr, zostawiæ default poza:
+	- group: pl.fis.java
+	- artifact: {NAME}-service
+	- JAVA 11
+
+	- Nale¿y dodaæ wszystkie dependencje wymagane do prawid³owego dzia³ania mikroserwisu
+	(web starter, data jpa, data rest, security, h2, bez postgresa - bêdê go teraz dodawa³ dla ca³ego projektu)
+		
+		- !!!!!!!!!!! dodatkowo Config Client i Eureka Discovery Client !!!!!!!!!!!!!!
+	
+	-to wszystko, generujemy
+
+2. Wypakowany projekt nale¿y wrzuciæ do g³ównego katalogu lbd-cinema-final/ - na tym samym poziomie co config-server, registry-service i gateway-service
+3. Tutaj prawdopodobnie napotkacie na problem - IDE nie bêdzie rozpoznawa³o tego modu³u jako projekt mavenowy
+	- w IntelliJ :
+		- view -> tool windows -> maven
+		- powinna siê otworzyæ zak³adka z projektami mavenowymi
+		- Je¿eli jest tam wasze {NAME}-service to znaczy ¿e rozpozna³o i gitarka
+		- Je¿eli nie to klikamy plusik i nale¿y wskazaæ plik pom.xml z naszego modu³u - w ten sposób IDE rozpozna mikroservice jako projekt który mo¿na osobno odpaliæ
+	- w Eclipse : 
+		- RIP
+4. Troszeczkê konfiguracji <3
+	- w naszym {NAME}ServiceApplication ({NAME}-service/src/main/java/pl/fis/java/{NAME}service/{NAME}ServiceApplication ) nale¿y dodaæ adnotacjê nad definicj¹ klasy:
+		import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+		@EnableDiscoveryClient
+		jak jej nie rozpoznaje to zjeb*a³eœ podczas generacji projektu, zacznij od nowa lamo
+	- wywalamy application.properties z {NAME}-service/src/main/resources i w jego zastêpstwie tworzymy plik bootstrap.yml:
+
+spring:
+  application:
+    name: {NAME}-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      password: 1234
+      username: user
+
+	- Teraz serwerowi zarz¹dzaj¹cemu trzeba powiedzieæ ¿eby doda³ nowy mikroserwis. Do katalogu config-server/src/main/resources/shared dodajemy plik {NAME}-service.yml:
+
+spring:
+  datasource:
+    username: sa
+    password:
+    url: jdbc:h2:file:~/test
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+server:
+  servlet:
+    context-path: /{PATH}
+  port: {PORT}
+
+	niestety, ale na razie nie bêdzie dostêpu do konsoli h2. Spróbuje to zaraz naprawiæ.
+	Generalnie to chyba ten plik odpowiada waszemu application.properties, tylko ¿e w yml-u. Jak chcecie coœ dodaæ do application.properties to w³aœnie do tego pliku w sposób yml-owy, ale tego nie jestem pewien
+	
+	- Teraz trzeba przekierowaæ gatewaya ¿ebyœmy siê mogli dostaæ do naszego mikroserwisu po 8080/{PATH}. Modyfikujemy plikconfig-server/src/main/resources/shared/gateway-service.yml i dodajemy pod routes (tam gdzie jest pokomentowane):
+
+    {NAME}-service:
+      path: /{PATH}/**		#path that will be intercepted
+      url: {NAME}-service 	#which url the request will e mapped to
+      stripPrefix: false 	#if zuul should replace the "/uaa/" segment
+      sensitiveHeaders:
+
+	TYLKO POCZAS TESTOWANIA modyfikujemy gateway-service.yml, lepiej tego nie commitowaæ imho
+
+No i generalnie to to tyle.
+
+Aby odpaliæ ¿eby nam dzia³a³o:
+	- Musicie ka¿dy mikroserwis odpalaæ osobno, zaczynaj¹c od serwerów zarz¹dzaj¹cych
+	config-server,
+	registry-service,
+	gateway-service
+	... i wszystkie mikroserwisy które chcecie odpaliæ
+	Jak rebuildujecie mikroserwis to nie musicie odpalaæ tych trzech serwerów, wystarczy zrebuildowaæ mikroserwis i œmiga
+	
+	- Aby odpaliæ jeden mikroserwis:
+		- Intellij:
+			- Ka¿dy mikroservice ma klase {NAME}ServiceApplication. 
+			Je¿eli Intellij widzi ten serwis jako projekt mavenowy (jak nie to patrz wy¿ej) to po lewej od maina w tej klasie bêdzie zielona strza³eczka do odpalenia tej aplikacji
+			Jak nie to macie zadanie domowe ¿eby to odpaliæ jakoœ z cmd bo ja nie wiem xD
+		- Eclipse:
+			- RIP
+		
+		Odpalacie, zostawiacie w spokoju i se dzia³acie na swoim.
+
+Nasze api powinno byæ dostêpne pod localhost:8080/{PATH}
+
+Mo¿ecie mieæ problemy z:
+	Spring Security:
+		- nale¿y dodaæ klasê SecurityConfig w waszym mikroserwisie:
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().permitAll();
+
+        // ? for postman
+        http.csrf().disable();
+    }
+}
+
+	Je¿eli podczas uruchamiania dostajecie java.lang.TypeNotPresentException: Type javax.xml.bind.JAXBContext not present
+	to zapomnieliœcie dodaæ spring data jpa (Od javy 11 odrzucili wsparcie do JaxB)
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+	
+	
