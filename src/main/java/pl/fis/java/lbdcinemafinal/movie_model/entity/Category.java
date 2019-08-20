@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -19,8 +20,8 @@ public class Category {
     @NotBlank
     private String name;
 
-    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
-    @JsonBackReference
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    //@JsonBackReference
     private Set<Movie> movies = new HashSet<>();
 
     public Category() {}
@@ -54,4 +55,18 @@ public class Category {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return getId() == category.getId() &&
+                getName().equals(category.getName()) &&
+                Objects.equals(getMovies(), category.getMovies());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getMovies());
+    }
 }

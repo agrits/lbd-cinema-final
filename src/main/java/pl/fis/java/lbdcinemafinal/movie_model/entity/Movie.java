@@ -1,10 +1,12 @@
 package pl.fis.java.lbdcinemafinal.movie_model.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 public class Movie {
@@ -22,7 +24,7 @@ public class Movie {
     @NotBlank
     private String description;
 
-    @Column(name = "duration", nullable = false)
+    @Column(name = "duration", nullable = false, length = 4096)
     @NotNull
     private int duration;
 
@@ -34,9 +36,11 @@ public class Movie {
     @NotBlank
     private String rating;
 
+    @RestResource(exported = false)
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonManagedReference
+    @NotNull
+    //@JsonManagedReference
     private Category category;
 
     public Movie() {}
@@ -96,5 +100,24 @@ public class Movie {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return getId() == movie.getId() &&
+                getDuration() == movie.getDuration() &&
+                getTitle().equals(movie.getTitle()) &&
+                getDescription().equals(movie.getDescription()) &&
+                getPegi().equals(movie.getPegi()) &&
+                getRating().equals(movie.getRating()) &&
+                getCategory().equals(movie.getCategory());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getDescription(), getDuration(), getPegi(), getRating(), getCategory());
     }
 }
