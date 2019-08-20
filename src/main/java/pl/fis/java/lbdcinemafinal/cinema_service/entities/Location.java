@@ -13,16 +13,16 @@ public class Location
 	@GeneratedValue
 	private Long id;
 
-	@NotEmpty
+	@NotEmpty(message = "city name cannot be empty")
 	private String city;
 
-	@NotEmpty
+	@NotEmpty(message = "address cannot be empty")
 	private String address;
 
-	@NotNull
+	@NotNull(message = "longitude cannot be empty")
 	private Double longitude;
 
-	@NotNull
+	@NotNull(message = "latitude cannot be empty")
 	private Double latitude;
 
 	public Long getId()

@@ -15,15 +15,15 @@ public class Seat
 	@GeneratedValue
 	private Long id;
 
-	@NotNull
+	@NotNull(message = "seat row cannot be empty")
 	@Column(name = "seat_row", nullable = false)
 	private Integer row;
 
-	@NotNull
+	@NotNull(message = "seat column cannot be empty")
 	@Column(name = "seat_column", nullable = false)
 	private Integer column;
 
-	@NotNull
+	@NotNull(message = "hall cannot be empty")
 	@ManyToOne
 	@JoinColumn(name = "hall_id")
 	private Hall hall;

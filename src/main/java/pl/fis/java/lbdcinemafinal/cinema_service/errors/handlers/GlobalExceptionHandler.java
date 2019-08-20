@@ -1,5 +1,10 @@
 package pl.fis.java.lbdcinemafinal.cinema_service.errors.handlers;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionSystemException;
@@ -13,7 +18,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 	@ExceptionHandler(TransactionSystemException.class)
 	public ResponseEntity<String> constraintViolation(TransactionSystemException ex)
 	{
-		//System.out.print();
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		Throwable cause = ex.getRootCause();
+		String message = "";
+		if (cause instanceof ConstraintViolationException)
+		{
+			Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) cause)
+					.getConstraintViolations();
+			for (ConstraintViolation<?> violation : constraintViolations)
+			{
+				message += violation.getMessage() + "\n";
+			}
+		}
+
+		return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
 	}
 }

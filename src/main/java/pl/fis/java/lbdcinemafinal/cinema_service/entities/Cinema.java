@@ -20,11 +20,11 @@ public class Cinema
 	@GeneratedValue
 	private Long id;
 
-	@NotEmpty
+	@NotEmpty(message = "cinema name cannot be empty")
 	@Column(nullable = false)
 	private String name;
 
-	@NotNull
+	@NotNull(message = "location cannot be null")
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "location_id", nullable = false)
 	private Location location;

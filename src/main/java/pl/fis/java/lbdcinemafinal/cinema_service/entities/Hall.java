@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 public class Hall
@@ -19,16 +20,18 @@ public class Hall
 	@GeneratedValue
 	private Long id;
 
-	@NotNull
+	@NotNull(message = "number of seats cannot be null")
+	@Positive(message = "number of seats must be positive")
 	@Column(name = "number_of_seats", nullable = false)
 	private Integer numberOfSeats;
 
-	@NotNull
+	@NotNull(message = "hall number cannot be blank")
+	@Positive(message = "hall number must be positive")
 	@Column(name = "number", nullable = false)
 	private Integer number;
 
 	@ManyToOne
-	@NotNull
+	@NotNull(message = "cinema cannot be null")
 	@JoinColumn(name = "cinema_id", nullable = false)
 	private Cinema cinema;
 
