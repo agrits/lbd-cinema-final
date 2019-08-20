@@ -17,29 +17,29 @@ public class Movie {
     private long id;
 
     @Column(name = "title", nullable = false)
-    @NotBlank
+    @NotBlank(message = "{title.notblank}")
     private String title;
 
     @Column(name = "description", nullable = false)
-    @NotBlank
+    @NotBlank(message = "{description.notblank}")
     private String description;
 
     @Column(name = "duration", nullable = false, length = 4096)
-    @NotNull
+    @NotNull(message = "{range.notnull}")
     private int duration;
 
     @Column(name = "pegi", nullable = false)
-    @NotBlank
+    @NotBlank(message = "{pegi.notblank}")
     private String pegi;
 
     @Column(name = "rating", nullable = false)
-    @NotBlank
+    @NotBlank(message = "{rating.notblank}")
     private String rating;
 
     @RestResource(exported = false)
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @NotNull
+    @NotNull(message = "{category.notnull}")
     //@JsonManagedReference
     private Category category;
 

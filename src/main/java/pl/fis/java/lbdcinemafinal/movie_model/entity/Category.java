@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -17,11 +18,12 @@ public class Category {
     private long id;
 
     @Column(name = "name", nullable = false)
-    @NotBlank
+    @NotBlank(message = "{name.notblank}")
     private String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     //@JsonBackReference
+    @NotEmpty(message = "{movies.notempty}")
     private Set<Movie> movies = new HashSet<>();
 
     public Category() {}

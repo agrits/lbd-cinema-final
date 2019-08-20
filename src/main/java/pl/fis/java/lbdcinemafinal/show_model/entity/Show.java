@@ -16,20 +16,20 @@ public class Show {
     private long id;
 
     @Column(name = "hall_id", nullable = false)
-    @NotNull
+    @NotNull(message = "{hall_id.notnull}")
     private long hall_id;
 
     @Column(name = "movie_id", nullable = false)
-    @NotNull
+    @NotNull(message = "{movie_id.notnull}")
     private long movie_id;
 
     @Column(name = "time", nullable = false)
     @DateTimeFormat
-    @NotNull
+    @NotNull(message = "{time.notnull}")
     private LocalDateTime time;
 
     @Column(name = "price", nullable = false)
-    @NotNull
+    @NotNull(message = "{price.notnull}")
     private double price;
 
     public Show() {}
