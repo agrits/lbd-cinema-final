@@ -17,11 +17,11 @@ public class Seat
 
 	@NotNull
 	@Column(name = "seat_row", nullable = false)
-	private int row;
+	private Integer row;
 
 	@NotNull
 	@Column(name = "seat_column", nullable = false)
-	private int column;
+	private Integer column;
 
 	@NotNull
 	@ManyToOne

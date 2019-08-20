@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Hall
@@ -18,13 +19,16 @@ public class Hall
 	@GeneratedValue
 	private Long id;
 
+	@NotNull
 	@Column(name = "number_of_seats", nullable = false)
-	private int numberOfSeats;
+	private Integer numberOfSeats;
 
+	@NotNull
 	@Column(name = "number", nullable = false)
-	private int number;
+	private Integer number;
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "cinema_id", nullable = false)
 	private Cinema cinema;
 
