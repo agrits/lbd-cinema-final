@@ -1,22 +1,37 @@
-<div id="content">
+<div id="users">
     <div class="container">
         <div class="row" *ngFor="let movie of movies">
-            <div class="col-md-3">
-                <ul class="list-group">
-                    <div class="list-group-item clearfix">
-                        <div class="profile-teaser-main">
-                            <h3 class="profile-name">{{movie.title}}</h3>
-                            <div class="profile-info">
-                                <div class="info"><span class="">Długość filmu:</span> {{movie.duration}} minut </div>
-                                <br>
-                                <div class="info"><span class="">Rating:</span> {{movie.rating}} / 10 </div><br>
-                                <div class="info"><span class="">PEGI:</span> {{movie.pegi}}</div><br>
-                                <div class="info"><span class="">Kategoria :</span> {{movie.category.name}}</div><br>
-                                <div class="info"><span class="">Opis filmu :</span> {{movie.description}}</div><br>
+            <div class="col-md-12">
+                <div class="list-group list">
+                    <a class="list-group-item">
+                        <div class="col-md-10">
+                            <h4 class="list-group-item-heading name">{{movie.title}}</h4>
+                            <p class="list-group-item-text title">
+                                <b>Długość filmu:</b> {{movie.duration}} minut
+                            </p>
+                            <p class="list-group-item-text title">
+                                <b>Rating: </b> {{movie.rating}} / 10
+                            </p>
+                            <p class="list-group-item-text title">
+                                <b>PEGI: </b> {{movie.pegi}}</p>
+                            <p class="list-group-item-text title">
+                                <b>Kategoria: </b> {{movie.category.name}}</p>
+                            <p class="list-group-item-text title" *ngIf=" (showMovieDescription) && lastMovieClicked === movie.id">
+                                <b>Opis filmu: </b>
+                                {{movie.description}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="expertise">
+                                <div class="read-more">
+                                    <button type="button" class="btn btn-primary btn-more"
+                                        (click)="movieDescriptionOnClick(movie)">Opis filmu &nbsp; <i
+                                            class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </ul>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

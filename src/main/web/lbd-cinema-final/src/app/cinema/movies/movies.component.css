@@ -1,29 +1,46 @@
-.profile-teaser-left {
-  float: left;
-  width: 300%;
-  margin-right: 1%;
+body {
+  font-family: "Source Sans Pro", sans-serif;
 }
-
-.profile-teaser-main {
-  float: left;
-  width: 100%;
-  position: center;
+h1 {
+  text-align: center;
 }
-
-.info {
+.row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.photo {
+  border-radius: 45px;
+  margin-right: 20px;
+  width: 90px;
+  height: 90px;
+}
+.form-control {
+  width: 30%;
   display: inline-block;
   margin-right: 10px;
-  color: #777;
+}
+.name {
+  font-weight: 700;
+}
+.expertise-label {
+  display: block;
+  font-weight: 700;
+  margin-top: 10px;
+}
+.btn-more {
+  margin-top: 10px;
+  width: 100%;
+}
+.label {
+  font-weight: normal;
 }
 .info span {
   font-weight: bold;
 }
-.list-group-item {
-  width: 450%;
+.btn-more {
+  background-color: steelblue;
+  outline-color: black;
 }
-.profile-info {
-  margin-left: 10%;
-}
-.profile-name {
-  font-size: 180%;
+.list-group-item-text{
+  padding-left: 5%;
 }

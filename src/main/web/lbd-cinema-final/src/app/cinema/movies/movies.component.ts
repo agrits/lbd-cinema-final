@@ -14,10 +14,12 @@ export class MoviesComponent implements OnInit {
     private moviesService: MoviesService,
     private categoryService: CategoryService
   ) {}
-  movies: Movie[];
-  subscribedMovies: any;
-  categories: Category[];
-  subscribedCategory: any;
+  private movies: Movie[];
+  private subscribedMovies: any;
+  private categories: Category[];
+  private subscribedCategory: any;
+  private lastMovieClicked: number = 0;
+  private showMovieDescription: boolean = false;
   ngOnInit() {
     this.subscribedMovies = this.moviesService.getMovies().subscribe({
       next: movies => {
@@ -34,6 +36,18 @@ export class MoviesComponent implements OnInit {
         cat => cat.id === movie.category.id
       ).name;
     });
+  }
+  private movieDescriptionOnClick(movieToEdit) {
+    if (this.lastMovieClicked === movieToEdit.id) {
+      this.showMovieDescription = !this.showMovieDescription;
+    } else {
+      if (this.showMovieDescription) {
+        this.lastMovieClicked = movieToEdit.id;
+      } else {
+        this.lastMovieClicked = movieToEdit.id;
+        this.showMovieDescription = !this.showMovieDescription;
+      }
+    }
   }
   private categoriesInitialization() {
     this.subscribedCategory = this.categoryService.getCategories().subscribe({
