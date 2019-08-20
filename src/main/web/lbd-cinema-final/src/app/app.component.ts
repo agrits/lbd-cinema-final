@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  title = 'lbd-cinema-final';
+  chosenCity: string = "Gliwice";
+  cities: string[] = ["Katowice", "Gliwice", "Rzeszów", "Warszawa"];
+  title = "FIS-SST Cinema";
+  ngOnInit(): void {}
+  cityClicked(event) {
+    this.chosenCity = event.target.innerText;
+  }
 }

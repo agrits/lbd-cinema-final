@@ -8,8 +8,8 @@ import { RegisterComponent } from "./user/register/register.component";
 import { UserModule } from "./user/user.module";
 import { LoginComponent } from "./user/login/login.component";
 import { CinemaModule } from "./cinema/cinema.module";
-import { MoviesComponent } from "./cinema/movies/movies.component";
 import { RepertoireComponent } from "./cinema/repertoire/repertoire.component";
+import { MoviesComponent } from './cinema/movies/movies.component';
 
 @NgModule({
   declarations: [AppComponent],
