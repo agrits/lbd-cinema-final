@@ -2,6 +2,7 @@ package pl.fis.java.lbdcinemafinal.cinema_service.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Hall
 	@JoinColumn(name = "cinema_id", nullable = false)
 	private Cinema cinema;
 
-	@OneToMany(mappedBy = "hall")
+	@OneToMany(mappedBy = "hall", cascade = CascadeType.PERSIST)
 	private List<Seat> seats;
 
 	public Long getId()

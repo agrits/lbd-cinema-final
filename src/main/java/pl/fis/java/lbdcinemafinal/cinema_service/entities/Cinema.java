@@ -2,6 +2,7 @@ package pl.fis.java.lbdcinemafinal.cinema_service.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,11 +25,11 @@ public class Cinema
 	private String name;
 
 	@NotNull
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "location_id", nullable = false)
 	private Location location;
 
-	@OneToMany(mappedBy = "cinema")
+	@OneToMany(mappedBy = "cinema", cascade= CascadeType.PERSIST)
 	private List<Hall> halls;
 
 	public List<Hall> getHalls()

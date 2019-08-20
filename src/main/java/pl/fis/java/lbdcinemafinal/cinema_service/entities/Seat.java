@@ -20,7 +20,7 @@ public class Seat
 	private int row;
 
 	@NotNull
-	@Column(nullable = false)
+	@Column(name = "seat_column", nullable = false)
 	private int column;
 
 	@NotNull
