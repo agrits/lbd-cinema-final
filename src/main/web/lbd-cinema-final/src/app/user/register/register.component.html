@@ -1,6 +1,103 @@
+<div class="container">
+    <div class="wrapper">
+        <form [formGroup]="registerForm" class="form-signin" (ngSubmit)="onSubmit()" autocomplete="off">
+            <h3 class="form-signin-heading">Utwórz konto</h3>
+            <div class="form-group">
+                <input formControlName="firstName" type="text" class="form-control" name="firstName" placeholder="Imie"
+                    [(ngModel)]="firstName" />
+            </div>
+            <div *ngIf="registerForm.controls['firstName'].invalid && registerForm.controls['firstName'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['firstName'].errors.minlength">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Imię musi przynajmniej 3 znaki
+                </div>
+                <div *ngIf="registerForm.controls['firstName'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Imię jest wymagane.
+                </div>
+            </div>
+            <div class="form-group">
+                <input formControlName="lastName" type="text" class="form-control" name="lastName"
+                    placeholder="Nazwisko" [(ngModel)]="lastName" />
+            </div>
+            <div *ngIf="registerForm.controls['lastName'].invalid && registerForm.controls['lastName'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['lastName'].errors.minlength">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Nazwisko musi przynajmniej 3 znaki
+                </div>
+                <div *ngIf="registerForm.controls['lastName'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Nazwisko jest wymagane.
+                </div>
+            </div>
+            <div class="form-group"><input formControlName="pesel" type="text" class="form-control" name="pesel"
+                    placeholder="Pesel" [(ngModel)]="pesel" maxlength="11" />
+            </div>
+            <div *ngIf="registerForm.controls['pesel'].invalid && registerForm.controls['pesel'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['pesel'].errors.minlength ">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Pesel musi mieć 11 znaków
+                </div>
+                <div *ngIf="registerForm.controls['pesel'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Pesel jest wymagany
+                </div>
+            </div>
+            <div class="form-group">
+                <input formControlName="email" type="email" class="form-control" name="email" placeholder="E-mail"
+                    [(ngModel)]="email" />
+            </div>
 
-<div id="content">
-    <div class="container">
-        <h3>Register works</h3>
+            <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['email'].errors.email ">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Wprowadzony email jest niepoprawny.
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Email jest wymagany.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input formControlName="password" type="password" class="form-control" name="password"
+                    placeholder="Hasło" [(ngModel)]="password" />
+            </div>
+            <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['password'].errors.minlength ">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Hasło musi mieć minimum 8 znaków.
+                </div>
+                <div *ngIf="registerForm.controls['password'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Hasło jest wymagane.
+                </div>
+            </div>
+            <div class="form-group">
+                <input formControlName="confirmPassword" type="password" class="form-control" name="confirmPassword"
+                    placeholder="Potwierdź hasło" [(ngModel)]="confirmPassword" pattern="{{password}}" />
+            </div>
+            <div *ngIf="registerForm.controls['confirmPassword'].invalid && registerForm.controls['confirmPassword'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['confirmPassword'].errors.pattern ">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Hasła muszą się zgadzać.
+                </div>
+                <div *ngIf="registerForm.controls['confirmPassword'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Potwierdzenie hasła jest wymagane.
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
+                    [disabled]="!registerForm.valid">Login</button>
+            </div>
+        </form>
+
     </div>
 </div>
