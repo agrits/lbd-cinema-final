@@ -5,23 +5,19 @@ zuul:
     socket-timeout-millis: 20000
 
   routes:
-#    user-service:
-#      path: /uaa/** #path that will be intercepted
-#      url: user-service #which url the request will e mapped to
-#      stripPrefix: false #if zuul should replace the "/uaa/" segment
-#      sensitiveHeaders:
-
-#    account-service:
-#      path: /accounts/**
-#      serviceId: account-service
-#      stripPrefix: false
-#      sensitiveHeaders:
-
-      cinema-service:
-        path: /services/cinema-service/**		#path that will be intercepted
-        url: cinema-service 	#which url the request will e mapped to
-        stripPrefix: false 	#if zuul should replace the "/uaa/" segment
-        sensitiveHeaders:
+    cinema-service:
+      path: /services/cinema-service/**		#path that will be intercepted
+      url: cinema-service 	#which url the request will e mapped to
+      stripPrefix: false 	#if zuul should replace the "/uaa/" segment
+      sensitiveHeaders:
 
   server:
     port: 8080
+
+  hystrix:
+    command:
+      default:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 20000

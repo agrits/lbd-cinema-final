@@ -2,14 +2,7 @@ package pl.fis.java.cinemaservice.entities;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -17,12 +10,12 @@ import javax.validation.constraints.Positive;
 public class Hall
 {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull(message = "number of seats cannot be null")
 	@Positive(message = "number of seats must be positive")
-	@Column(name = "number_of_seats", nullable = false)
+	@Column(name = "seats_number", nullable = false)
 	private Integer numberOfSeats;
 
 	@NotNull(message = "hall number cannot be blank")
