@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="wrapper">
+        <form [formGroup]="addForm" class="form-signin" (ngSubmit)="onSubmit()" autocomplete="off">
+            <h3 class="form-signin-heading">Dodaj film</h3>
+
+
+            <div class="form-group">
+                <input formControlName="title" type="text" class="form-control" name="title" placeholder="Tytul"
+                    [(ngModel)]="title" />
+            </div>
+            <div *ngIf="registerForm.controls['title'].invalid && registerForm.controls['title'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['title'].errors.minlength">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Tytuł musi przynajmniej 2 znaki
+                </div>
+                <div *ngIf="registerForm.controls['title'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Tytuł jest wymagany.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input formControlName="duration" type="text" class="form-control" name="duration"
+                    placeholder="Nazwisko" [(ngModel)]="duration" />
+            </div>
+            <div *ngIf="registerForm.controls['duration'].invalid && registerForm.controls['duration'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['duration'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Długość jest wymagana.
+                </div>
+            </div>
+
+            <div class="form-group"><input formControlName="rating" type="text" class="form-control" name="rating"
+                    placeholder="rating" [(ngModel)]="rating" maxlength="11" />
+            </div>
+            <div *ngIf="registerForm.controls['rating'].invalid && registerForm.controls['rating'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['rating'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    rating jest wymagany
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <input formControlName="pegi" type="pegi" class="form-control" name="pegi" placeholder="PEGI"
+                    [(ngModel)]="pegi" />
+            </div>
+            <div *ngIf="registerForm.controls['pegi'].invalid && registerForm.controls['pegi'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['pegi'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    PEGI jest wymagany.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Select category:</label>
+                <select class="form-control" formControlName="category" 
+                formControlGroup="category" placeholder="Category" name="category"
+                [ngModel]="selectedCategory" (ngModelChange)="onCategoryChange($event)" required>
+                    <option *ngFor="let category of categories" [ngValue]="category">
+                        {{category.name}}
+                    </option> 
+                    <div *ngIf="category.invalid && submitted" class="invalid-feedback">
+                        <div *ngIf="category.errors.required">Category is required.</div> 
+                    </div>
+                </select>
+              </div>
+            
+            <div class="form-group">
+                <input formControlName="description" type="description" class="form-control" name="description" placeholder="Opis"
+                    [(ngModel)]="description" />
+            </div>
+            <div *ngIf="registerForm.controls['description'].invalid && registerForm.controls['description'].dirty"
+                class="alert-danger">
+                <div *ngIf="registerForm.controls['description'].errors.required">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    Opis jest wymagany.
+                </div>
+            </div>
+
+            
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
+                    [disabled]="!registerForm.valid">Register</button>
+            </div>
+        </form>
+
+    </div>
+</div>

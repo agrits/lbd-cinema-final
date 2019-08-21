@@ -23,8 +23,8 @@ export class localizationService extends DefaultService {
       return this.httpClient.put<LocalizationAttrs>(this.apiUrl + this.localizationUrl, localization);
   }
 
-  getDefaultCity(longitude: string, lattitude: string): Observable<Localization> {
-    let params = new HttpParams().set("longitude", longitude).set("lattitude", lattitude);
+  getDefaultCity(longitude: string, latitude: string): Observable<Localization> {
+    let params = new HttpParams().set("longitude", longitude).set("latitude", latitude);
     return this.httpClient.get<Localization>(this.apiUrl + this.localizationUrl + "/default", {params: params});
   }
 

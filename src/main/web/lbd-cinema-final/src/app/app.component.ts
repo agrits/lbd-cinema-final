@@ -16,20 +16,20 @@ export class AppComponent {
   subscribedDefaultCity: Subscription;
   title = "FIS-SST Cinema";
   chosenCity: string = "Gliwice";
-  longtitude: string;
-  lattitude: string;
+  longitude: string;
+  latitude: string;
 
   constructor(private localizationService: localizationService){}
   
   ngOnInit(){
     this.getCities();
     this.localizationService.getPosition().then(position => {
-      this.longtitude = `${position.lng}`;
-      this.lattitude = `${position.lat}`;
-      console.log("lattitude: " + this.lattitude + " longtitude: " + this.longtitude);
+      this.longitude = `${position.lng}`;
+      this.latitude = `${position.lat}`;
+      console.log("latitude: " + this.latitude + " longitude: " + this.longitude);
     });
 
-    //this.getDefaultCity(this.longtitude, this.lattitude);
+    //this.getDefaultCity(this.longitude, this.latitude);
   }
 
   cityClicked(event) {
@@ -43,8 +43,8 @@ export class AppComponent {
     });
   }
 
-  getDefaultCity(longtitude: string, lattitude: string){
-    this.subscribedDefaultCity = this.localizationService.getDefaultCity(longtitude, lattitude).subscribe({
+  getDefaultCity(longitude: string, latitude: string){
+    this.subscribedDefaultCity = this.localizationService.getDefaultCity(longitude, latitude).subscribe({
       next: (data) => this.city = data, ///////////////////////////CHOSEN CITY <-------
       error: () => alert('Could not get any default City!')
     });
