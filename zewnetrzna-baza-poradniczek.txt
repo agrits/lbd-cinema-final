@@ -29,7 +29,10 @@ spring:
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 NIE COMMITOWAÆ DANYCH! 
 WTEDY BÊD¥ DOSTÊPNE NA PUBLICZNYM REPOZYTORIUM NA GITHUBIE I KA¯DY BÊDZIE MÓG£ WEJŒÆ NA T¥ BAZÊ I SIE POBAWIÆ
-ZARAZ POCZYTAM JAK TO ROZWI¥ZAÆ
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+w pliku config-server/.gitignore dodaæ liniê
+
+src/main/resources/shared/{NAME}-service.yml
 
 Dane dostaliœcie na teamsach
