@@ -1,5 +1,3 @@
-import { Role } from "../role/role";
-
 export interface UserAttrs {
   id: number;
   email: string;
@@ -7,7 +5,7 @@ export interface UserAttrs {
   firstName: string;
   lastName: string;
   pesel: string;
-  role: Role;
+  role: string;
 }
 export class User {
   id: number;
@@ -16,7 +14,7 @@ export class User {
   firstName: string;
   lastName: string;
   pesel: string;
-  role: Role;
+  role: string;
   constructor(attrs: Partial<UserAttrs> = {}) {
     this.id = attrs.id;
     this.email = attrs.email;
