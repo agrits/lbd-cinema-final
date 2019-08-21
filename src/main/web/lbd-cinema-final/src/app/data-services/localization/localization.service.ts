@@ -3,6 +3,7 @@ import { DefaultService } from "../default.service";
 import { Localization, LocalizationAttrs } from "src/app/data-entity/localization/localization";
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: "root"
 })
@@ -22,8 +23,9 @@ export class localizationService extends DefaultService {
       return this.httpClient.put<LocalizationAttrs>(this.apiUrl + this.localizationUrl, localization);
   }
 
-  getDefaultCity(): Observable<Localization> {
-    return this.httpClient.get<Localization>(this.apiUrl + this.localizationUrl);
+  getDefaultCity(longitude: string, lattitude: string): Observable<Localization> {
+    let params = new HttpParams().set("longitude", longitude).set("lattitude", lattitude);
+    return this.httpClient.get<Localization>(this.apiUrl + this.localizationUrl + "/default", {params: params});
   }
 
   getPosition(): Promise<any>
