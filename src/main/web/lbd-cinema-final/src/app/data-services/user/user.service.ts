@@ -9,10 +9,8 @@ import { DefaultService } from "../default.service";
 export class UserService extends DefaultService {
   protected userUrl: string = "/users";
   postUser(user: User): Observable<any> {
-    return this.httpClient.post<User>(
-      this.apiUrl + this.userUrl,
-      user,
-      this.httpOptions
-    );
+    return this.httpClient.post<User>(this.apiUrl + this.userUrl, user, {
+      observe: "response"
+    });
   }
 }

@@ -8,8 +8,8 @@ import { CredentialsService } from "src/app/data-services/credentials/credential
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  private email: String;
-  private password: String;
+  private email: string;
+  private password: string;
   private loginForm: FormGroup;
   constructor(private credentialsService: CredentialsService) {}
   onSubmit() {
@@ -28,9 +28,9 @@ export class LoginComponent implements OnInit {
   }
   private checkCredentials() {
     if (this.credentialsService.checkCredentials(this.email, this.password)) {
-      // Credentials correct, user logged in. 
+      // Credentials correct, user logged in.
     } else {
-      alert("Niepoprawne dane logowania. Spróbuj ponownie.")
+      alert("Niepoprawne dane logowania. Spróbuj ponownie.");
     }
   }
 }
