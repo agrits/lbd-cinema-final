@@ -1,5 +1,8 @@
 package pl.fis.java.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +14,7 @@ public class CinemaUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long id;
 
     @NotNull
@@ -62,10 +66,12 @@ public class CinemaUser {
         this.lastName = lastName;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
