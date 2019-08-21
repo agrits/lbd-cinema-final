@@ -1,5 +1,6 @@
 package pl.fis.java.reservationservice.entity.reservation.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.rest.core.annotation.RestResource;
 import pl.fis.java.reservationservice.entity.ticket.model.Ticket;
 
@@ -32,8 +33,10 @@ public class Reservation {
     @Column(name = "show_id", nullable = false)
     private Long showId;
 
+
     @NotNull
     @PastOrPresent
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy h:mm a")
     @Column(nullable = false)
     private LocalDateTime time;
 
