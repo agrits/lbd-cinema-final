@@ -15,12 +15,18 @@ zuul:
 #      url: user-service #which url the request will e mapped to
 #      stripPrefix: false #if zuul should replace the "/uaa/" segment
 #      sensitiveHeaders:
-
+#
 #    account-service:
 #      path: /accounts/**
 #      serviceId: account-service
 #      stripPrefix: false
 #      sensitiveHeaders:
+
+    reservation-service:
+      path: /service/reservation/**
+      url: reservation-service
+      stripPrefix: false
+      sensitiveHeaders:
 
 server:
   port: 8080
