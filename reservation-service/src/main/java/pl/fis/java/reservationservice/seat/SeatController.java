@@ -32,28 +32,44 @@ public class SeatController {
 
     @Autowired
     ReservationRepository reservationRepository;
+    @Autowired
+    ReservationRepository discountRepository;
+    @Autowired
+    ReservationRepository ticketRepository;
 
     @Autowired
     DumpService dumpService;
 
+    private void doDumpIfRepoEmpty(){
+        boolean reservationRepoEmpty = StreamSupport
+                .stream(reservationRepository.findAll().spliterator(),false)
+                .collect(Collectors.toList()).isEmpty();
+
+        boolean discountRepoEmpty = StreamSupport
+                .stream(discountRepository.findAll().spliterator(),false)
+                .collect(Collectors.toList()).isEmpty();
+
+        boolean ticketRepoEmpty = StreamSupport
+                .stream(ticketRepository.findAll().spliterator(),false)
+                .collect(Collectors.toList()).isEmpty();
+
+        if(reservationRepoEmpty || discountRepoEmpty || ticketRepoEmpty)
+            dumpService.dump();
+    }
+
     @GetMapping(value = "/for-show/{show_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Seat>> getSeatsByShowId(@PathVariable(name = "show_id") Long showId) {
 
+        doDumpIfRepoEmpty();
+        
         List<Seat> results = null;
 
         final String showsResourceUri = "http://localhost:3000/shows";
         final String hallsResourceUri = "http://localhost:3000/halls";
         final String seatsResourceUri = "http://localhost:3000/seats";
-        final String reservationResourceUri = "http://localhost:3000/reservations";
 
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<List<Reservation>> response = restTemplate.exchange(
-                reservationResourceUri,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Reservation>>(){}
-        );
 
 //
 //        //find all reservations assigned to the given show
@@ -71,7 +87,7 @@ public class SeatController {
 //                .map(ticket -> ticket.getSeatId())
 //                .collect(Collectors.toList());
 
-        dumpService.dump();
+
 
         return new ResponseEntity<>(results, HttpStatus.OK);
 
