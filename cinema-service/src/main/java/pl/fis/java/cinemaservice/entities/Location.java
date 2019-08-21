@@ -1,8 +1,6 @@
 package pl.fis.java.cinemaservice.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +22,17 @@ public class Location
 
 	@NotNull(message = "latitude cannot be empty")
 	private Double latitude;
+
+	@OneToOne(mappedBy= "location", cascade = CascadeType.PERSIST)
+	private Cinema cinema;
+
+	public Cinema getCinema() {
+		return cinema;
+	}
+
+	public void setCinema(Cinema cinema) {
+		this.cinema = cinema;
+	}
 
 	public Long getId()
 	{
