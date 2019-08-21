@@ -1,4 +1,4 @@
-package pl.fis.java.reservationservice.seat;
+package pl.fis.java.reservationservice.seat.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,7 +8,7 @@ public class Seat {
     private Long id;
 
     @JsonProperty
-    private Long hallId;
+    private Hall hall;
 
     @JsonProperty
     private Integer row;
@@ -27,12 +27,12 @@ public class Seat {
         this.id = id;
     }
 
-    public Long getHallId() {
-        return hallId;
+    public Hall getHall() {
+        return hall;
     }
 
-    public void setHallId(Long hallId) {
-        this.hallId = hallId;
+    public void setHall(Hall hall) {
+        this.hall = hall;
     }
 
     public Integer getRow() {
