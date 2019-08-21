@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     if (this.credentialsService.checkCredentials(this.email, this.password)) {
       // Credentials correct, log user - send cookie
     } else {
-      // Credentials incorrect, inform user about failed login.
+      alert("Niepoprawne dane logowania. Spróbuj ponownie.")
     }
   }
 }
