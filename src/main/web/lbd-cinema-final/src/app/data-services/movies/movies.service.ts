@@ -9,7 +9,6 @@ import { DefaultService } from "../default.service";
 })
 export class MoviesService extends DefaultService {
   protected moviesUrl: string = "/movies";
-
   getMovies(): Observable<Movie[]> {
     return this.httpClient
       .get<MovieAttrs[]>(this.apiUrl + this.moviesUrl)
