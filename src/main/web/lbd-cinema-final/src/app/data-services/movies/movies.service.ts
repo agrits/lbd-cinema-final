@@ -14,4 +14,16 @@ export class MoviesService extends DefaultService {
       .get<MovieAttrs[]>(this.apiUrl + this.moviesUrl)
       .pipe(map(data => data.map(movieAttrs => new Movie(movieAttrs))));
   }
+
+  createMovie(movie: Movie): Observable<Movie> {
+    return this.httpClient.post<MovieAttrs>(this.moviesUrl, movie);
+  }
+
+  updateMovie(movie: Movie): Observable<Movie> {
+    return this.httpClient.put<MovieAttrs>(this.moviesUrl + "/" + movie.id, movie);
+  }
+
+  deleteMovie(id: number): Observable<Movie> {
+    return this.httpClient.delete<Movie>(this.moviesUrl + "/" + id);
+  }
 }
