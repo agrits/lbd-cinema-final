@@ -12,5 +12,5 @@ spring:
 
 server:
   servlet:
-    context-path: /service/cinema-service
+    context-path: /services/cinema-service
   port: 8082
