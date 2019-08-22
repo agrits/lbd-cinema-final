@@ -14,15 +14,4 @@ export class CredentialsService extends DefaultService {
       observe: "response"
     });
   }
-  public checkCredentials(email: String, password: String): Boolean {
-    let areCredentialsCorrect: Boolean;
-    this.postCredentials(new Credentials(email, password)).subscribe(s => {
-      if (s.status === 200) {
-        areCredentialsCorrect = true;
-      } else {
-        areCredentialsCorrect = false;
-      }
-    });
-    return areCredentialsCorrect;
-  }
 }

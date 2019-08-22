@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
     user.id = this.registerForm.controls.id.value;
     user.role = "USER";
     this.userService.postUser(user).subscribe(s => {
-      if (s.status === 201) {
+      if (s.status === 200) {
         alert(
           "Użytkownik zarejestrowany. Sprawdź swój adres e-mail w celu weryfikacji konta."
         );
