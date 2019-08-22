@@ -92,35 +92,35 @@ public class SeatController {
             return new ResponseEntity<>(results, HttpStatus.OK);
         }
 
-        Long hallId = show.getBody().getHallId();
+//        Long hallId = show.getBody().getHallId();
+//
+//        //get all seats
+//        ResponseEntity<List<Seat>> allSeats = restTemplate.exchange(
+//                seatsResourceUri,
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<List<Seat>>() {
+//                }
+//        );
+//
+//        //get all seats assigned to the given hall
+//        List<Seat> allSeatsForHall = allSeats.getBody()
+//                .stream()
+//                .filter(seat -> hallId.equals(seat.getHall().getId()))
+//                .collect(Collectors.toList());
+//
+//
+//        for (Seat seat : allSeatsForHall) {
+//
+//            seat.setAvailable(false);
+//            reservedSeatids
+//                    .stream()
+//                    .filter(id -> seat.equals(id))
+//                    .findAny()
+//                    .ifPresentOrElse(id -> seat.setAvailable(false), () -> seat.setAvailable(true));
+//        }
 
-        //get all seats
-        ResponseEntity<List<Seat>> allSeats = restTemplate.exchange(
-                seatsResourceUri,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Seat>>() {
-                }
-        );
-
-        //get all seats assigned to the given hall
-        List<Seat> allSeatsForHall = allSeats.getBody()
-                .stream()
-                .filter(seat -> hallId.equals(seat.getHall().getId()))
-                .collect(Collectors.toList());
-
-
-        for (Seat seat : allSeatsForHall) {
-
-            seat.setAvailable(false);
-            reservedSeatids
-                    .stream()
-                    .filter(id -> seat.equals(id))
-                    .findAny()
-                    .ifPresentOrElse(id -> seat.setAvailable(false), () -> seat.setAvailable(true));
-        }
-
-        results.addAll(allSeatsForHall);
+//        results.addAll(allSeatsForHall);
 
 
         return new ResponseEntity<>(results, HttpStatus.OK);

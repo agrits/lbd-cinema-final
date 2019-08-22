@@ -3,6 +3,7 @@ package pl.fis.java.showservice.show_model.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -47,6 +48,9 @@ public class Show {
 
     @NotNull
     private boolean dubbing;
+
+    @NotEmpty
+    private String language;
 
 
     public Show() {}
@@ -121,6 +125,14 @@ public class Show {
 
     public void setDubbing(boolean dubbing) {
         this.dubbing = dubbing;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public boolean isThreeD() {
