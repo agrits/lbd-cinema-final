@@ -3,7 +3,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-
+src/main/resources/shared/movie-service.yml
+src/main/resources/shared/show-service.yml
+src/main/resources/shared/reservation-service.yml
+src/main/resources/shared/user-service.yml
 ### STS ###
 .apt_generated
 .classpath
@@ -29,3 +32,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+src/main/resources/shared/cinema-service.yml
