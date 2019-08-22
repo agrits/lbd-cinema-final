@@ -998,6 +998,7 @@ insert into show (hall_id,time,movieid,language,lector,subtitles,dubbing,3d,pric
 insert into show (hall_id,time,movieid,language,lector,subtitles,dubbing,3d,price,cinemaid) values (3,"07-dec-2019 12:06 am",29,"hebrew","false","true","false","false",30,3)
 insert into show (hall_id,time,movieid,language,lector,subtitles,dubbing,3d,price,cinemaid) values (5,"29-sep-2019 11:11 pm",27,"dari","false","true","true","true",20,5)
 insert into show (hall_id,time,movieid,language,lector,subtitles,dubbing,3d,price,cinemaid) values (3,"09-sep-2019 10:56 am",18,"hebrew","false","false","false","false",35,3)
+
 insert into category (name) values ("action & adventure")
 insert into category (name) values ("action comedies")
 insert into category (name) values ("action sci-fi & fantasy")

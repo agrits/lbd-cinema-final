@@ -1,29 +1,15 @@
 package pl.fis.java.reservationservice.seat.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.hateoas.ResourceSupport;
 
-public class Hall {
-
-    @JsonProperty
-    private Long id;
+public class Hall extends ResourceSupport {
 
     @JsonProperty
     private Long showId;
 
-    public Long getId() {
-        return id;
-    }
-
     public Hall() {
 
-    }
-
-    public Hall(Long id) {
-        this.id = id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getShowId() {

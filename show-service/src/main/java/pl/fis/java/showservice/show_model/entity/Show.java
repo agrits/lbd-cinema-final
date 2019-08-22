@@ -40,7 +40,7 @@ public class Show {
     private boolean subtitles;
 
     @NotNull
-    private boolean 3d;
+    private boolean threeD;
 
     @NotNull
     private boolean lector;

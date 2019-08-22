@@ -34,3 +34,7 @@ build/
 .vscode/
 
 src/main/resources/shared/cinema-service.yml
+src/main/resources/shared/movie-service.yml
+src/main/resources/shared/reservation-service.yml
+src/main/resources/shared/show-service.yml
+src/main/resources/shared/user-service.yml

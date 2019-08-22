@@ -1,6 +1,7 @@
 package pl.fis.java.reservationservice.seat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import pl.fis.java.reservationservice.entity.discount.repository.DiscountRepository;
+import pl.fis.java.reservationservice.entity.reservation.model.Reservation;
 import pl.fis.java.reservationservice.entity.reservation.repository.ReservationRepository;
 import pl.fis.java.reservationservice.entity.ticket.repository.TicketRepository;
 import pl.fis.java.reservationservice.mock.DumpService;
@@ -40,6 +42,9 @@ public class SeatController {
     TicketRepository ticketRepository;
 
     @Autowired
+    DiscoveryClient discoveryClient;
+
+    @Autowired
     DumpService dumpService;
 
     private void doDumpIfRepoEmpty() {
@@ -59,13 +64,19 @@ public class SeatController {
             dumpService.dump();
     }
 
+
+
     @GetMapping(value = "/for-show/{show_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Seat>> getSeatsByShowId(@PathVariable(name = "show_id") Long showId) {
 
         List<Seat> results = new ArrayList<>();
 
+        Seat seat;
+
+
+
         final String showsResourceUri = "http://localhost:3000/shows" + "/" + showId.toString();
-        final String hallsResourceUri = "http://localhost:3000/halls";
+
         final String seatsResourceUri = "http://localhost:3000/seats";
 
         RestTemplate restTemplate = new RestTemplate();
