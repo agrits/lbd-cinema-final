@@ -4,6 +4,9 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+### Config with sensitive data ###
+src/main/resources/shared/reservation-service.yml
+
 ### STS ###
 .apt_generated
 .classpath
