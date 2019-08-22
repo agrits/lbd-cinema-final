@@ -1,8 +1,5 @@
 #This configuration file will hold common configs to be shared among all files
-spring:
-  h2:
-    console:
-      enabled: true
+
 eureka:
   instance:
     prefer-ip-address: false
