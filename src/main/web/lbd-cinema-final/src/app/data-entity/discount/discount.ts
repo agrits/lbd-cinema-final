@@ -1,4 +1,11 @@
-export interface DiscountAttrs{
+export interface DiscounResponseAttrs {
+    _embedded: {
+        movies: DiscountAttrs[];
+    };
+}
+
+
+export interface DiscountAttrs {
     name: string;
     amount: number;
     _links: {
@@ -28,4 +35,13 @@ export class Discount {
             href: string;
         }
     }
+
+
+
+    constructor(attrs: Partial<DiscountAttrs>) {
+        this.name = attrs.name;
+        this.amount = attrs.amount;
+        this._links = attrs._links;        
+    }
+
 }
