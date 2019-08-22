@@ -6,7 +6,7 @@
                 <input formControlName="firstName" type="text" class="form-control" name="firstName" placeholder="Imie"
                     [(ngModel)]="firstName" />
             </div>
-            <div *ngIf="registerForm.controls['firstName'].invalid && registerForm.controls['firstName'].dirty"
+            <div *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].dirty || registerForm.controls['firstName'].untouched)"
                 class="alert-danger">
                 <div *ngIf="registerForm.controls['firstName'].errors.minlength">
                     <span class="glyphicon glyphicon-remove-circle"></span>
@@ -21,7 +21,7 @@
                 <input formControlName="lastName" type="text" class="form-control" name="lastName"
                     placeholder="Nazwisko" [(ngModel)]="lastName" />
             </div>
-            <div *ngIf="registerForm.controls['lastName'].invalid && registerForm.controls['lastName'].dirty"
+            <div *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].dirty || registerForm.controls['lastName'].untouched)"
                 class="alert-danger">
                 <div *ngIf="registerForm.controls['lastName'].errors.minlength">
                     <span class="glyphicon glyphicon-remove-circle"></span>
@@ -35,7 +35,7 @@
             <div class="form-group"><input formControlName="pesel" type="text" class="form-control" name="pesel"
                     placeholder="Pesel" [(ngModel)]="pesel" maxlength="11" />
             </div>
-            <div *ngIf="registerForm.controls['pesel'].invalid && registerForm.controls['pesel'].dirty"
+            <div *ngIf="registerForm.controls['pesel'].invalid && (registerForm.controls['pesel'].dirty || registerForm.controls['pesel'].untouched)"
                 class="alert-danger">
                 <div *ngIf="registerForm.controls['pesel'].errors.minlength ">
                     <span class="glyphicon glyphicon-remove-circle"></span>
@@ -51,7 +51,7 @@
                     [(ngModel)]="email" />
             </div>
 
-            <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].dirty"
+            <div *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].untouched) "
                 class="alert-danger">
                 <div *ngIf="registerForm.controls['email'].errors.email ">
                     <span class="glyphicon glyphicon-remove-circle"></span>
@@ -67,7 +67,7 @@
                 <input formControlName="password" type="password" class="form-control" name="password"
                     placeholder="Hasło" [(ngModel)]="password" />
             </div>
-            <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].dirty"
+            <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].untouched) "
                 class="alert-danger">
                 <div *ngIf="registerForm.controls['password'].errors.minlength ">
                     <span class="glyphicon glyphicon-remove-circle"></span>
@@ -82,7 +82,7 @@
                 <input formControlName="confirmPassword" type="password" class="form-control" name="confirmPassword"
                     placeholder="Potwierdź hasło" [(ngModel)]="confirmPassword" pattern="{{password}}" />
             </div>
-            <div *ngIf="registerForm.controls['confirmPassword'].invalid && registerForm.controls['confirmPassword'].dirty"
+            <div *ngIf="registerForm.controls['confirmPassword'].invalid && ( registerForm.controls['confirmPassword'].dirty|| registerForm.controls['confirmPassword'].untouched) "
                 class="alert-danger">
                 <div *ngIf="registerForm.controls['confirmPassword'].errors.pattern ">
                     <span class="glyphicon glyphicon-remove-circle"></span>
@@ -93,9 +93,9 @@
                     Potwierdzenie hasła jest wymagane.
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf=" registerForm.valid ">
                 <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
-                    [disabled]="!registerForm.valid">Register</button>
+                    [hidden]="!registerForm.valid">Zajerestruj</button>
             </div>
         </form>
 

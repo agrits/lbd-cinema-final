@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "src/app/data-services/user/user.service";
 import { User } from "src/app/data-entity/user/user";
 import { Router } from "@angular/router";
+import { Md5 } from "ts-md5/dist/md5";
+
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -11,13 +13,16 @@ import { Router } from "@angular/router";
 export class RegisterComponent implements OnInit {
   private registerForm: FormGroup;
   constructor(private userService: UserService, private router: Router) {}
-
+  md5 = new Md5();
   onSubmit() {
     let user: User = new User();
     user.email = this.registerForm.controls.email.value;
     user.firstName = this.registerForm.controls.firstName.value;
     user.lastName = this.registerForm.controls.lastName.value;
-    user.password = this.registerForm.controls.password.value;
+    user.password = this.md5
+      .appendStr(this.registerForm.controls.password.value)
+      .end()
+      .toString();
     user.pesel = this.registerForm.controls.pesel.value;
     user.id = this.registerForm.controls.id.value;
     user.role = "USER";
