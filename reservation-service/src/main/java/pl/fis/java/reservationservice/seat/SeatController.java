@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
-@RequestMapping("/seats")
+@RequestMapping("/seats-for-show")
 @Transactional
 public class SeatController {
 
@@ -77,17 +77,15 @@ public class SeatController {
     }
 
 
-    @GetMapping(value = "/for-show/{show_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{show_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Seat>> getSeatsByShowId(@PathVariable(name = "show_id") Long showId) {
 
-        final Logger logger = Logger.getLogger("SeatController");
-
-        List<Seat> results = new ArrayList<>();
 
         RestTemplate restTemplate = new RestTemplate();
+        List<Seat> results = new ArrayList<>();
 
-        //all reserved seatIds for the given show
-        List<Long> reservedSeatids = ticketRepository.findAllReservedSeatsForShow(showId);
+        //all booked seatIds for the given show
+        List<Long> bookedSeatIds = ticketRepository.findAllReservedSeatsForShow(showId);
 
         //get show from show-service by id
         Optional<ServiceInstance> showService = discoveryClient.getInstances("show-service").stream().findFirst();
@@ -118,29 +116,27 @@ public class SeatController {
 
         ResponseEntity<JsonNode> jsonNode = restTemplate.getForEntity(seatsFromHallUri, JsonNode.class);
 
-        Optional<List<Seat>> seats = SeatMapper.map(jsonNode.getBody());
+        Optional<List<Seat>> seatsbyHallId = SeatMapper.map(jsonNode.getBody());
 
-        if (seats.isEmpty()) {
+        if (seatsbyHallId.isEmpty()) {
             return new ResponseEntity<>(results, HttpStatus.NOT_FOUND);
         }
 
-
         //check which seats are available and set the appropriate value
-        seats.get()
+        seatsbyHallId.get()
                 .stream()
                 .forEach(seat -> {
                     seat.setAvailable(false);
-                    boolean isSeatReserved = reservedSeatids
+                    boolean isSeatReserved = bookedSeatIds
                             .stream()
                             .map(id -> id.longValue())
                             .collect(Collectors.toList())
                             .contains(seat.getId().longValue());
-
                     if (!isSeatReserved)
                         seat.setAvailable(true);
                 });
 
-        results.addAll(seats.get());
+        results.addAll(seatsbyHallId.get());
         return new ResponseEntity<>(results, HttpStatus.OK);
 
     }
