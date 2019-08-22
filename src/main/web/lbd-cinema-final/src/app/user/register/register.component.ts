@@ -4,6 +4,7 @@ import { UserService } from "src/app/data-services/user/user.service";
 import { User } from "src/app/data-entity/user/user";
 import { Router } from "@angular/router";
 import { Md5 } from "ts-md5/dist/md5";
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: "app-register",
@@ -12,7 +13,11 @@ import { Md5 } from "ts-md5/dist/md5";
 })
 export class RegisterComponent implements OnInit {
   private registerForm: FormGroup;
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
   md5 = new Md5();
   onSubmit() {
     let user: User = new User();
@@ -43,6 +48,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.initializeRegisterForm();
+    console.log(JSON.parse(this.cookieService.get("userCookie")));
   }
   private initializeRegisterForm() {
     this.registerForm = new FormGroup({
