@@ -13,7 +13,7 @@
           aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span> {{chosenCity}} <span
             class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a *ngFor="let city of cities" (click)="cityClicked($event)"> {{city}}</a></li>
+          <li><a *ngFor="let city of cities"  (click)="cityClicked($event)"> {{city.city}}</a></li>
         </ul>
       </li>
       <li><a [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span> Rejestracja</a></li>

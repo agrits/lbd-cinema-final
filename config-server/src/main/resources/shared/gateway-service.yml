@@ -5,17 +5,35 @@ zuul:
     socket-timeout-millis: 20000
 
   routes:
-#    user-service:
-#      path: /uaa/** #path that will be intercepted
-#      url: user-service #which url the request will e mapped to
-#      stripPrefix: false #if zuul should replace the "/uaa/" segment
-#      sensitiveHeaders:
+    user-service:
+      path: /api/user/**
+      url: user-service
+      stripPrefix: false
+      sensitiveHeaders:
 
-#    account-service:
-#      path: /accounts/**
-#      serviceId: account-service
-#      stripPrefix: false
-#      sensitiveHeaders:
+    cinema-service:
+      path: /api/cinema/**
+      serviceId: cinema-service
+      stripPrefix: false
+      sensitiveHeaders:
+
+    reservation-service:
+      path: /api/reservation/**
+      serviceId: reservation-service
+      stripPrefix: false
+      sensitiveHeaders:
+
+    show-service:
+      path: /api/show/**
+      serviceId: show-service
+      stripPrefix: false
+      sensitiveHeaders:
+
+    movie-service:
+      path: /api/movie/**
+      serviceId: movie-service
+      stripPrefix: false
+      sensitiveHeaders:
 
     movie-service:
       path: /movie_api/**        #path that will be intercepted

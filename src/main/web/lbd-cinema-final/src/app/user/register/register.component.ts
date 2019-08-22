@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "src/app/data-services/user/user.service";
 import { User } from "src/app/data-entity/user/user";
-
+import { Router } from "@angular/router";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -10,7 +10,7 @@ import { User } from "src/app/data-entity/user/user";
 })
 export class RegisterComponent implements OnInit {
   private registerForm: FormGroup;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   onSubmit() {
     let user: User = new User();
@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
         alert(
           "Użytkownik zarejestrowany. Sprawdź swój adres e-mail w celu weryfikacji konta."
         );
+        this.router.navigate(["/login"]);
       } else if (s.status === 400) {
         alert("Użytkownik już istnieje. Wybierz inny adres e-mail.");
       } else {
