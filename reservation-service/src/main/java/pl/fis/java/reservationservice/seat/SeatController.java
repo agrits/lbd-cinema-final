@@ -62,8 +62,6 @@ public class SeatController {
     @GetMapping(value = "/for-show/{show_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Seat>> getSeatsByShowId(@PathVariable(name = "show_id") Long showId) {
 
-        doDumpIfRepoEmpty();
-
         List<Seat> results = new ArrayList<>();
 
         final String showsResourceUri = "http://localhost:3000/shows" + "/" + showId.toString();
