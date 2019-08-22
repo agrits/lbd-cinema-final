@@ -123,6 +123,14 @@ public class Show {
         this.dubbing = dubbing;
     }
 
+    public boolean isThreeD() {
+        return threeD;
+    }
+
+    public void setThreeD(boolean threeD) {
+        this.threeD = threeD;
+    }
+
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
