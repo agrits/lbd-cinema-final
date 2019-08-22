@@ -1,16 +1,15 @@
 spring:
   datasource:
-    username: sa
-    password:
-    url: jdbc:h2:file:~/test
-    driver-class-name: org.h2.Driver
+    username: utbzwohtpzyweb
+    password: a0ce77ac36dc6524a2ef99353ca9aa95682cbae5677cae7dc117614ed0707062
+    url: jdbc:postgresql://ec2-54-225-72-238.compute-1.amazonaws.com:5432/dc7cc6cqo9sod4
+    driverClassName: org.postgresql.Driver
 
-  h2:
-    console:
-      enabled: true
-      path: /h2
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 server:
   servlet:
-    context-path: /movie_api
+    context-path: /api/movie
   port: 8085

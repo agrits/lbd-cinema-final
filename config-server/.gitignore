@@ -3,6 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+src/main/resources/shared/movie-service.yml
+src/main/resources/shared/show-service.yml
 
 ### STS ###
 .apt_generated
