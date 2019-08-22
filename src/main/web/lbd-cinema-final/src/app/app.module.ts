@@ -12,6 +12,7 @@ import { RepertoireComponent } from "./cinema/repertoire/repertoire.component";
 import { MoviesComponent } from "./cinema/movies/movies.component";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

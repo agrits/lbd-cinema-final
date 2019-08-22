@@ -1,4 +1,7 @@
 import { Component } from "@angular/core";
+import { localizationService } from './data-services/localization/localization.service';
+import { Localization } from './data-entity/localization/localization';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-root",
@@ -6,20 +9,46 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  chosenCity: string = "Gliwice";
-  cities: string[] = [
-    "Katowice",
-    "Gliwice",
-    "Rzeszów",
-    "Warszawa",
-    "Poznań",
-    "Wrocław",
-    "Gdańsk",
-    "Szczecin"
-  ];
+
+  cities: Localization[];
+  city: Localization;
+  subscribedCities: Subscription;
+  subscribedDefaultCity: Subscription;
   title = "FIS-SST Cinema";
-  ngOnInit(): void {}
+  chosenCity: string = "Gliwice";
+  longtitude: string;
+  lattitude: string;
+
+  constructor(private localizationService: localizationService){}
+  
+  ngOnInit(){
+    this.getCities();
+    this.localizationService.getPosition().then(position => {
+      this.longtitude = `${position.lng}`;
+      this.lattitude = `${position.lat}`;
+      console.log("lattitude: " + this.lattitude + " longtitude: " + this.longtitude);
+    });
+
+    //this.getDefaultCity(this.longtitude, this.lattitude);
+  }
+
   cityClicked(event) {
     this.chosenCity = event.target.innerText;
   }
+
+  getCities(){
+    this.subscribedCities = this.localizationService.getLocalizations().subscribe({
+      next: (data) => this.cities = data,
+      error: () => alert('Could not get any Cities!')
+    });
+  }
+
+  getDefaultCity(longtitude: string, lattitude: string){
+    this.subscribedDefaultCity = this.localizationService.getDefaultCity(longtitude, lattitude).subscribe({
+      next: (data) => this.city = data, ///////////////////////////CHOSEN CITY <-------
+      error: () => alert('Could not get any default City!')
+    });
+  }
+
+
 }

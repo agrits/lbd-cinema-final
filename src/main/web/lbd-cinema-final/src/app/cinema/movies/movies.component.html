@@ -1,5 +1,38 @@
-<div id="content">
+<div id="users">
     <div class="container">
-        <h3>Movies works!</h3>
+        <div class="row" *ngFor="let movie of movies">
+            <div class="col-md-12">
+                <div class="list-group list">
+                    <a class="list-group-item">
+                        <div class="col-md-10">
+                            <h4 class="list-group-item-heading name">{{movie.title}}</h4>
+                            <p class="list-group-item-text title">
+                                <b>Długość filmu:</b> {{movie.duration}} minut
+                            </p>
+                            <p class="list-group-item-text title">
+                                <b>Rating: </b> {{movie.rating}} / 10
+                            </p>
+                            <p class="list-group-item-text title">
+                                <b>PEGI: </b> {{movie.pegi}}</p>
+                            <p class="list-group-item-text title">
+                                <b>Kategoria: </b> {{movie.category.name}}</p>
+                            <p class="list-group-item-text title" *ngIf=" (showMovieDescription) && lastMovieClicked === movie.id">
+                                <b>Opis filmu: </b>
+                                {{movie.description}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="expertise">
+                                <div class="read-more">
+                                    <button type="button" class="btn btn-primary btn-more"
+                                        (click)="movieDescriptionOnClick(movie)">Opis filmu &nbsp; <i
+                                            class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
