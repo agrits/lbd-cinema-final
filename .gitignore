@@ -30,3 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 config-server/src/main/resources/shared/user-service.yml
+src/main/resources/mock/mock.sql

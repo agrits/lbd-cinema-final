@@ -29,7 +29,7 @@ function formatRow(row){
   return processedRow;
 }
 var formatQuery = function(query){
-  return query.replace("Id", "_id").toLowerCase().replace("admin", "ADMIN").replace(",\"user\")", ",\"USER\")")
+  return query.replace("Id", "_id").replace("Name", "_name").toLowerCase().replace("admin", "ADMIN").replace(",\'user\')", ",\'USER\')")
 }
 var queries = []
 Object.keys(tableNames).forEach(table => {
@@ -41,9 +41,9 @@ Object.keys(tableNames).forEach(table => {
       if(typeof(val) === 'number' && val < 99999999){
         return val
       }
-      else return `"${val}"`
+      else return `'${val.toString().replace("\'", "")}'`
     }).join(",")
-    let query = `INSERT INTO ${tableNames[table]} (${keys}) values (${values})`
+    let query = `INSERT INTO ${tableNames[table]} (${keys}) values (${values});`
     queries.push(formatQuery(query))
   })
 })
