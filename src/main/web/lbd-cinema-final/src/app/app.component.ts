@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
-import { localizationService } from "./data-services/localization/localization.service";
-import { Localization } from "./data-entity/localization/localization";
-import { Subscription } from "rxjs";
-import { CookieService } from 'ngx-cookie-service';
+import { localizationService } from './data-services/localization/localization.service';
+import { Localization } from './data-entity/localization/localization';
+import { Subscription } from 'rxjs';
+import { Capability } from 'protractor';
 
 @Component({
   selector: "app-root",
@@ -10,28 +10,25 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
+
   cities: Localization[];
   city: Localization;
   subscribedCities: Subscription;
   subscribedDefaultCity: Subscription;
   title = "FIS-SST Cinema";
-  chosenCity: string = "Gliwice";
+  chosenCity: String;
   longtitude: string;
   lattitude: string;
 
-  constructor(
-    private localizationService: localizationService,
-     private cookieService: CookieService
-  ) {}
-
-  ngOnInit() {
+  constructor(private localizationService: localizationService){}
+  
+  ngOnInit(){
     this.getCities();
     this.localizationService.getPosition().then(position => {
       this.longtitude = `${position.lng}`;
       this.lattitude = `${position.lat}`;
-      console.log(
-        "lattitude: " + this.lattitude + " longtitude: " + this.longtitude
-      );
+      //console.log("latitude: " + this.lattitude + " longtitude: " + this.longtitude);
+      this.getDefaultCity(this.longtitude, this.lattitude);
     });
 
     //this.getDefaultCity(this.longtitude, this.lattitude);
@@ -41,21 +38,24 @@ export class AppComponent {
     this.chosenCity = event.target.innerText;
   }
 
-  getCities() {
-    this.subscribedCities = this.localizationService
-      .getLocalizations()
-      .subscribe({
-        next: data => (this.cities = data),
-        error: () => alert("Could not get any Cities!")
-      });
+  getCities(){
+    this.subscribedCities = this.localizationService.getLocalizations().subscribe(
+      res => { this.cities = res["_embedded"]["locations"];
+      /*next: (data) => this.cities = data,
+      error: () => alert('Could not get any Cities!')*/
+      
+    });
+
   }
 
-  getDefaultCity(longtitude: string, lattitude: string) {
-    this.subscribedDefaultCity = this.localizationService
-      .getDefaultCity(longtitude, lattitude)
-      .subscribe({
-        next: data => (this.city = data), ///////////////////////////CHOSEN CITY <-------
-        error: () => alert("Could not get any default City!")
-      });
+  getDefaultCity(longtitude: string, lattitude: string){
+    this.subscribedDefaultCity = this.localizationService.getDefaultCity(longtitude, lattitude).subscribe(res => {
+      this.city = res;
+      this.chosenCity = res.city;
+      /*next: (data) => this.chosenCity = data, ///////////////////////////CHOSEN CITY <-------
+      error: () => alert('Could not get any default City!')*/
+    });
   }
+
+
 }
