@@ -36,16 +36,21 @@ public class Show {
     @NotNull(message = "{cinema_id.notnull}")
     private long cinema_id;
 
+    @NotNull
+    private boolean subtitles;
+
+    @NotNull
+    private boolean 3d;
+
+    @NotNull
+    private boolean lector;
+
+    @NotNull
+    private boolean dubbing;
+
+
     public Show() {}
 
-
-    public long getCinema_id() {
-        return cinema_id;
-    }
-
-    public void setCinema_id(long cinema_id) {
-        this.cinema_id = cinema_id;
-    }
     public long getId() {
         return id;
     }
@@ -86,21 +91,56 @@ public class Show {
         this.price = price;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Show show = (Show) o;
-        return getId() == show.getId() &&
-                getHall_id() == show.getHall_id() &&
-                getMovie_id() == show.getMovie_id() &&
-                Double.compare(show.getPrice(), getPrice()) == 0 &&
-                getTime().equals(show.getTime());
+    public long getCinema_id() {
+        return cinema_id;
     }
 
-    @Override
+    public void setCinema_id(long cinema_id) {
+        this.cinema_id = cinema_id;
+    }
+
+    public boolean isSubtitles() {
+        return subtitles;
+    }
+
+    public void setSubtitles(boolean subtitles) {
+        this.subtitles = subtitles;
+    }
+
+    public boolean isLector() {
+        return lector;
+    }
+
+    public void setLector(boolean lector) {
+        this.lector = lector;
+    }
+
+    public boolean isDubbing() {
+        return dubbing;
+    }
+
+    public void setDubbing(boolean dubbing) {
+        this.dubbing = dubbing;
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        Show show = (Show) object;
+        return id == show.id &&
+                hall_id == show.hall_id &&
+                movie_id == show.movie_id &&
+                Double.compare(show.price, price) == 0 &&
+                cinema_id == show.cinema_id &&
+                subtitles == show.subtitles &&
+                lector == show.lector &&
+                dubbing == show.dubbing &&
+                java.util.Objects.equals(time, show.time);
+    }
+
     public int hashCode() {
-        return Objects.hash(getId(), getHall_id(), getMovie_id(), getTime(), getPrice());
+        return Objects.hash(super.hashCode(), id, hall_id, movie_id, time, price, cinema_id, subtitles, lector, dubbing);
     }
 }
 
