@@ -7,26 +7,11 @@ import { DefaultService } from "../default.service";
   providedIn: "root"
 })
 export class CredentialsService extends DefaultService {
-  credentialsUrl: string = "/credentials";
+  credentialsUrl: string = "http://localhost:8080/api/user/login";
 
   postCredentials(credentials: Credentials): Observable<any> {
-    return this.httpClient.post<Credentials>(
-      this.apiUrl + this.credentialsUrl,
-      credentials,
-      {
-        observe: "response"
-      }
-    );
-  }
-  public checkCredentials(email: String, password: String): Boolean {
-    let areCredentialsCorrect: Boolean;
-    this.postCredentials(new Credentials(email, password)).subscribe(s => {
-      if (s.status === 200) {
-        areCredentialsCorrect = true;
-      } else {
-        areCredentialsCorrect = false;
-      }
+    return this.httpClient.post<Credentials>(this.credentialsUrl, credentials, {
+      observe: "response"
     });
-    return areCredentialsCorrect;
   }
 }
