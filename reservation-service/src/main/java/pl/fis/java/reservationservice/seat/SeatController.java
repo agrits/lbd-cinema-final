@@ -1,28 +1,40 @@
 package pl.fis.java.reservationservice.seat;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.client.Traverson;
+import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import pl.fis.java.reservationservice.entity.discount.repository.DiscountRepository;
-import pl.fis.java.reservationservice.entity.reservation.model.Reservation;
 import pl.fis.java.reservationservice.entity.reservation.repository.ReservationRepository;
 import pl.fis.java.reservationservice.entity.ticket.repository.TicketRepository;
 import pl.fis.java.reservationservice.mock.DumpService;
-import pl.fis.java.reservationservice.seat.dto.Hall;
 import pl.fis.java.reservationservice.seat.dto.Seat;
 import pl.fis.java.reservationservice.seat.dto.Show;
+import pl.fis.java.reservationservice.seat.dto.util.SeatMapper;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -65,64 +77,70 @@ public class SeatController {
     }
 
 
-
     @GetMapping(value = "/for-show/{show_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Seat>> getSeatsByShowId(@PathVariable(name = "show_id") Long showId) {
 
+        final Logger logger = Logger.getLogger("SeatController");
+
         List<Seat> results = new ArrayList<>();
 
-        Seat seat;
-
-
-
-        final String showsResourceUri = "http://localhost:3000/shows" + "/" + showId.toString();
-
-        final String seatsResourceUri = "http://localhost:3000/seats";
-
         RestTemplate restTemplate = new RestTemplate();
-
-        final Logger logger = Logger.getLogger("SeatController");
 
         //all reserved seatIds for the given show
         List<Long> reservedSeatids = ticketRepository.findAllReservedSeatsForShow(showId);
 
-        ResponseEntity<Show> show = restTemplate.getForEntity(showsResourceUri, Show.class);
+        //get show from show-service by id
+        Optional<ServiceInstance> showService = discoveryClient.getInstances("show-service").stream().findFirst();
 
-        if (!Optional.ofNullable(show.getBody()).isPresent()) {
-            return new ResponseEntity<>(results, HttpStatus.OK);
+        if (showService.isEmpty()) {
+            return new ResponseEntity<>(results, HttpStatus.NOT_FOUND);
         }
 
-//        Long hallId = show.getBody().getHallId();
-//
-//        //get all seats
-//        ResponseEntity<List<Seat>> allSeats = restTemplate.exchange(
-//                seatsResourceUri,
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<List<Seat>>() {
-//                }
-//        );
-//
-//        //get all seats assigned to the given hall
-//        List<Seat> allSeatsForHall = allSeats.getBody()
-//                .stream()
-//                .filter(seat -> hallId.equals(seat.getHall().getId()))
-//                .collect(Collectors.toList());
-//
-//
-//        for (Seat seat : allSeatsForHall) {
-//
-//            seat.setAvailable(false);
-//            reservedSeatids
-//                    .stream()
-//                    .filter(id -> seat.equals(id))
-//                    .findAny()
-//                    .ifPresentOrElse(id -> seat.setAvailable(false), () -> seat.setAvailable(true));
-//        }
+        final String showResourceUri = showService.get().getUri() + "/api/show/shows/" + showId.toString();
+        ResponseEntity<Show> show = restTemplate.getForEntity(showResourceUri, Show.class);
 
-//        results.addAll(allSeatsForHall);
+        if (!Optional.ofNullable(show.getBody()).isPresent()) {
+            return new ResponseEntity<>(results, HttpStatus.NOT_FOUND);
+        }
+
+        //retrieve hall id to be able to search for its seats
+        Long hallId = show.getBody().getHallId();
+
+        //get seats from cinema service by hall id
+        Optional<ServiceInstance> cinemaService = discoveryClient.getInstances("cinema-service").stream().findFirst();
+
+        if (cinemaService.isEmpty()) {
+            return new ResponseEntity<>(results, HttpStatus.NOT_FOUND);
+        }
+
+        final String seatsFromHallUri = cinemaService.get().getUri() + "/api/cinema/halls/"
+                + hallId.toString() + "/seats";
+
+        ResponseEntity<JsonNode> jsonNode = restTemplate.getForEntity(seatsFromHallUri, JsonNode.class);
+
+        Optional<List<Seat>> seats = SeatMapper.map(jsonNode.getBody());
+
+        if (seats.isEmpty()) {
+            return new ResponseEntity<>(results, HttpStatus.NOT_FOUND);
+        }
 
 
+        //check which seats are available and set the appropriate value
+        seats.get()
+                .stream()
+                .forEach(seat -> {
+                    seat.setAvailable(false);
+                    boolean isSeatReserved = reservedSeatids
+                            .stream()
+                            .map(id -> id.longValue())
+                            .collect(Collectors.toList())
+                            .contains(seat.getId().longValue());
+
+                    if (!isSeatReserved)
+                        seat.setAvailable(true);
+                });
+
+        results.addAll(seats.get());
         return new ResponseEntity<>(results, HttpStatus.OK);
 
     }
