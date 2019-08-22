@@ -14,10 +14,17 @@ zuul:
   server:
     port: 8080
 
+  ribbon:
+    eureka:
+      enable: true
+      ReadTimeout: 120000
+      ConnectTimeout: 3000
+
   hystrix:
     command:
       default:
         execution:
           isolation:
+            strategy: THREAD
             thread:
-              timeoutInMilliseconds: 20000
+              timeoutInMilliseconds: 60000
