@@ -1,6 +1,9 @@
 #This file is the entrypoint for spring to know where to look for the configuration file and hold the initial configuration
 
 spring:
+  h2:
+    console:
+      enabled: true
   application:
     name: registry-service #name of the application
   cloud:

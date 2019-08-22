@@ -1,4 +1,5 @@
 #This configuration file will hold common configs to be shared among all files
+
 eureka:
   instance:
     prefer-ip-address: false

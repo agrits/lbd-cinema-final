@@ -12,5 +12,5 @@ spring:
 
 server:
   servlet:
-    context-path: /service/reservation
-  port: 8083
+    context-path: /user_api
+  port: 8081
