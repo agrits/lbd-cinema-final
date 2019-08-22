@@ -1,0 +1,38 @@
+W swoim mikroserwisie pom.xml wywaliæ:
+<dependency>
+	<groupId>com.h2database</groupId>
+	<artifactId>h2</artifactId>
+	<scope>runtime</scope>
+</dependency>
+
+wstawiæ:
+
+<dependency>
+	<groupId>org.postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+	<scope>runtime</scope>
+</dependency>
+
+w config-server/src/main/resources/shared/{NAME}-service.yml:
+
+spring:
+	datasource:
+		username: {USERNAME}
+		password: {PASSWORD}
+		url: jdbc:postgresql://{HOST}:5432/{DATABASE}
+		driverClassName: org.postgresql.Driver
+	
+	jpa:
+		hibernate:
+			ddl-auto: update
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+NIE COMMITOWAÆ DANYCH! 
+WTEDY BÊD¥ DOSTÊPNE NA PUBLICZNYM REPOZYTORIUM NA GITHUBIE I KA¯DY BÊDZIE MÓG£ WEJŒÆ NA T¥ BAZÊ I SIE POBAWIÆ
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+w pliku config-server/.gitignore dodaæ liniê
+
+src/main/resources/shared/{NAME}-service.yml
+
+Dane dostaliœcie na teamsach
