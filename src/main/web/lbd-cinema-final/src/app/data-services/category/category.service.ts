@@ -16,4 +16,14 @@ export class CategoryService extends DefaultService {
         map(data => data.map(categoryAttrs => new Category(categoryAttrs)))
       );
   }
+
+  getCategory(href: string): Observable<Category> {
+    return this.httpClient
+      .get<CategoryAttrs>(href)
+      .pipe(
+        map(data => new Category(data))
+      );
+  }
+
+
 }

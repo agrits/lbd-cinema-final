@@ -13,31 +13,42 @@ export class MoviesComponent implements OnInit {
   constructor(
     private moviesService: MoviesService,
     private categoryService: CategoryService
-  ) {}
-  private movies: Movie[];
-  private subscribedMovies: any;
-  private categories: Category[];
-  private subscribedCategory: any;
-  private lastMovieClicked: number = 0;
-  private showMovieDescription: boolean = false;
+  ) { }
+
+
+  movies: Movie[];
+  subscribedMovies: any;
+  categories: Category[];
+  subscribedCategory: any;
+  lastMovieClicked: Number = 0;
+  showMovieDescription: boolean = false;
+
+
   ngOnInit() {
     this.subscribedMovies = this.moviesService.getMovies().subscribe({
       next: movies => {
         this.movies = movies;
         this.subscribedMovies = movies;
-        this.categoriesInitialization();
       },
-      error: () => alert("Could not get any movies")
+      error: () => alert("Could not get any movies"),
+      complete: () => this.moviesCategoryInitialization()
     });
   }
+
   private moviesCategoryInitialization() {
     this.movies.forEach(movie => {
-      movie.category.name = this.categories.find(
-        cat => cat.id === movie.category.id
-      ).name;
+      this.setMovieCategory(movie);
     });
   }
-  private movieDescriptionOnClick(movieToEdit) {
+
+  private setMovieCategory(movie: Movie) {
+    this.categoryService.getCategory(movie._links.category.href).subscribe({
+      next: category => movie.category = category
+    });
+  }
+
+  private movieDescriptionOnClick(movieToEdit: Movie) {
+    console.log(movieToEdit);
     if (this.lastMovieClicked === movieToEdit.id) {
       this.showMovieDescription = !this.showMovieDescription;
     } else {
@@ -49,14 +60,5 @@ export class MoviesComponent implements OnInit {
       }
     }
   }
-  private categoriesInitialization() {
-    this.subscribedCategory = this.categoryService.getCategories().subscribe({
-      next: categories => {
-        this.categories = categories;
-        this.subscribedCategory = categories;
-        this.moviesCategoryInitialization();
-      },
-      error: () => alert("Could not get any categories")
-    });
-  }
+
 }

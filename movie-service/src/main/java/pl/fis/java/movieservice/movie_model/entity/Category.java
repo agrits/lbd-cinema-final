@@ -21,10 +21,10 @@ public class Category {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     //@JsonBackReference
     @NotEmpty(message = "{movies.notempty}")
-    private Set<Movie> movies = new HashSet<>();
+    private Set<Movie> movies;
 
     public Category() {}
 
