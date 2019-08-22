@@ -31,6 +31,8 @@ public class GatewayServiceApplication {
 	public PostFilter postFilter() {
 		return new PostFilter();
 	}
+
+	@Bean
 	public CorsFilter corsFilter() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
