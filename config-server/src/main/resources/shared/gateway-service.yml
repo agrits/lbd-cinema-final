@@ -37,3 +37,7 @@ zuul:
 
 server:
   port: 8080
+
+ribbon:
+  ReadTimeout: 50000
+  
