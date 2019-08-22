@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import pl.fis.java.gatewayservice.filters.PreFilter;
 
 @SpringBootApplication
@@ -19,5 +21,17 @@ public class GatewayServiceApplication {
 	@Bean
 	public PreFilter preFilter() {
 		return new PreFilter();
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**")
+						.allowedOrigins("https://localhost:3000")
+						.allowedOrigins("http://localhost:3000")
+						.allowedMethods("GET", "POST");
+			}
+		};
 	}
 }
