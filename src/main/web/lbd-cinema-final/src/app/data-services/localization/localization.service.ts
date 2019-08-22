@@ -4,28 +4,31 @@ import { Localization, LocalizationAttrs } from "src/app/data-entity/localizatio
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { timeout } from 'rxjs/operators';
+
 @Injectable({
   providedIn: "root"
 })
 export class localizationService extends DefaultService {
   
-  protected localizationUrl: string = "/locations"; //"localization";
+  protected localizationUrl: string = "http://localhost:8080/api/cinema/locations";
 
   getLocalizations(): Observable<Localization[]> {
     return this.httpClient
-      .get<LocalizationAttrs[]>(this.apiUrl + this.localizationUrl)
+    .get<Localization[]>(this.localizationUrl).pipe(timeout(20000));
+    /*.get<LocalizationAttrs[]>(this.localizationUrl)
       .pipe(
         map(data => data.map(data => new Localization(data)))
-      );
+      ).pipe(timeout(20000));*/
   }
 
   updateLocalization(localization: Localization): Observable<LocalizationAttrs>{
-      return this.httpClient.put<LocalizationAttrs>(this.apiUrl + this.localizationUrl, localization);
+      return this.httpClient.put<LocalizationAttrs>(this.localizationUrl, localization);
   }
 
-  getDefaultCity(longitude: string, lattitude: string): Observable<Localization> {
-    let params = new HttpParams().set("longitude", longitude).set("lattitude", lattitude);
-    return this.httpClient.get<Localization>(this.apiUrl + this.localizationUrl + "/default", {params: params});
+  getDefaultCity(longitude: string, latitude: string): Observable<Localization> {
+    let params = new HttpParams().set("longitude", longitude).set("latitude", latitude);
+    return this.httpClient.get<Localization>(this.localizationUrl + "/default", {params: params}).pipe(timeout(90000));
   }
 
   getPosition(): Promise<any>

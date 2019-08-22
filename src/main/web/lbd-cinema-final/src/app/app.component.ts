@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { localizationService } from './data-services/localization/localization.service';
 import { Localization } from './data-entity/localization/localization';
 import { Subscription } from 'rxjs';
+import { Capability } from 'protractor';
 
 @Component({
   selector: "app-root",
@@ -15,7 +16,7 @@ export class AppComponent {
   subscribedCities: Subscription;
   subscribedDefaultCity: Subscription;
   title = "FIS-SST Cinema";
-  chosenCity: string = "Gliwice";
+  chosenCity: String;
   longtitude: string;
   lattitude: string;
 
@@ -26,7 +27,8 @@ export class AppComponent {
     this.localizationService.getPosition().then(position => {
       this.longtitude = `${position.lng}`;
       this.lattitude = `${position.lat}`;
-      console.log("lattitude: " + this.lattitude + " longtitude: " + this.longtitude);
+      //console.log("latitude: " + this.lattitude + " longtitude: " + this.longtitude);
+      this.getDefaultCity(this.longtitude, this.lattitude);
     });
 
     //this.getDefaultCity(this.longtitude, this.lattitude);
@@ -37,16 +39,21 @@ export class AppComponent {
   }
 
   getCities(){
-    this.subscribedCities = this.localizationService.getLocalizations().subscribe({
-      next: (data) => this.cities = data,
-      error: () => alert('Could not get any Cities!')
+    this.subscribedCities = this.localizationService.getLocalizations().subscribe(
+      res => { this.cities = res["_embedded"]["locations"];
+      /*next: (data) => this.cities = data,
+      error: () => alert('Could not get any Cities!')*/
+      
     });
+
   }
 
   getDefaultCity(longtitude: string, lattitude: string){
-    this.subscribedDefaultCity = this.localizationService.getDefaultCity(longtitude, lattitude).subscribe({
-      next: (data) => this.city = data, ///////////////////////////CHOSEN CITY <-------
-      error: () => alert('Could not get any default City!')
+    this.subscribedDefaultCity = this.localizationService.getDefaultCity(longtitude, lattitude).subscribe(res => {
+      this.city = res;
+      this.chosenCity = res.city;
+      /*next: (data) => this.chosenCity = data, ///////////////////////////CHOSEN CITY <-------
+      error: () => alert('Could not get any default City!')*/
     });
   }
 

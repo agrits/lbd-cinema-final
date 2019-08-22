@@ -1,5 +1,9 @@
 package pl.fis.java.cinemaservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,11 +22,13 @@ public class Cinema
 	private String name;
 
 	@NotNull(message = "location cannot be null")
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "location_id", nullable = false)
+	@JsonBackReference
 	private Location location;
 
 	@OneToMany(mappedBy = "cinema", cascade= CascadeType.PERSIST)
+	@JsonManagedReference
 	private List<Hall> halls;
 
 	public List<Hall> getHalls()

@@ -1,5 +1,8 @@
 package pl.fis.java.cinemaservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 import javax.persistence.*;
@@ -26,9 +29,11 @@ public class Hall
 	@ManyToOne
 	@NotNull(message = "cinema cannot be null")
 	@JoinColumn(name = "cinema_id", nullable = false)
+	@JsonBackReference
 	private Cinema cinema;
 
 	@OneToMany(mappedBy = "hall", cascade = CascadeType.PERSIST)
+	@JsonManagedReference
 	private List<Seat> seats;
 
 	public Long getId()
