@@ -4,11 +4,14 @@ import com.google.common.io.CharStreams;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import pl.fis.java.gatewayservice.tokenizer.Tokenizer;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Optional;
 
 public class PostFilter extends ZuulFilter {
 
@@ -34,7 +37,7 @@ public class PostFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
 
         HttpServletResponse response = ctx.getResponse();
-        System.out.println("Jestem na wyjsciu " + response.getStatus());
+
 
         try (final InputStream responseDataStream = ctx.getResponseDataStream()) {
             String responseData = CharStreams.toString(new InputStreamReader(responseDataStream, "UTF-8"));
