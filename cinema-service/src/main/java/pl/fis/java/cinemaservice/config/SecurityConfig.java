@@ -14,16 +14,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests().anyRequest().permitAll();
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+        //http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         // ? for postman
         http.csrf().disable();
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
+        http.headers().frameOptions().disable();
     }
 
 }
