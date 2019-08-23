@@ -1,5 +1,5 @@
 export interface SeatAttrs {
-    id: number;
+    id: Number;
     row: number;
     column: number;
     available: boolean;
@@ -7,7 +7,7 @@ export interface SeatAttrs {
 
 //Plain Old Json Object, no links!
 export class Seat {
-    id: number;
+    id: Number;
     row: number;
     column: number;
     available: boolean;

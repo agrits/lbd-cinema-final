@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class TicketService extends DefaultService {
   protected ticketUrl: string = "http://localhost:8080/api/reservation/tickets";
 
-  postReservation(ticket: Ticket): Observable<Ticket>{
+  postTicket(ticket: Ticket): Observable<Ticket>{
     return this.httpClient.post<Ticket>(this.ticketUrl, ticket);
   }
 

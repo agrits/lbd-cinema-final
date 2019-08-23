@@ -6,7 +6,7 @@ export interface GetReservationsResponse {
 
 export interface ReservationAttrs {
     userId: number;
-    showId: number;
+    showId: Number;
 
     //be aware of date-format
     //may be change type to string and then parse to date
@@ -27,7 +27,7 @@ export interface ReservationAttrs {
 
 export class Reservation {
     userId: number;
-    showId: number;
+    showId: Number;
     //be aware of date-format
     //may be change type to string and then parse to date
     time: Date;

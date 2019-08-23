@@ -6,7 +6,7 @@ export interface GetTicketsResponse {
 
 
 export interface TicketAttrs {
-    seatId: number;
+    seatId: Number;
     _links: {
         self: {
             href: string;
@@ -24,7 +24,7 @@ export interface TicketAttrs {
 }
 
 export class Ticket {
-    seatId: number;
+    seatId: Number;
     _links: {
         self: {
             href: string;
