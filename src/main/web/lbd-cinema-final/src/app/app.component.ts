@@ -25,7 +25,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.getCities();
-    this.setUpChosenCity();
+    //;
     this.setUsername();
   }
   private setUsername() {
@@ -45,20 +45,22 @@ export class AppComponent {
     this.localizationService.getPosition().then(position => {
       longtitude = `${position.lng}`;
       lattitude = `${position.lat}`;
-    });
 
-    this.getDefaultCity(longtitude, lattitude);
-    if (this.city) {
-      this.chosenCity = this.city.city;
-    }
-    sessionStorage.setItem("chosenCity", JSON.stringify(this.chosenCity));
+      console.log(longtitude + " " + lattitude);
+      this.getDefaultCity(longtitude, lattitude);
+      if (this.city) {
+        this.chosenCity = this.city.city;
+      }
+      sessionStorage.setItem("chosenCity", JSON.stringify(this.chosenCity));
+    });
   }
   getCities() {
     this.subscribedCities = this.localizationService
       .getLocalizations()
       .subscribe({
         next: data => (this.cities = data),
-        error: () => alert("Could not get any Cities!")
+        error: () => alert("Could not get any Cities!"),
+        complete: () => this.setUpChosenCity()
       });
   }
 
