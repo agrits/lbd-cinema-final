@@ -1,7 +1,7 @@
 <div id="users">
     <div class="container">
         <div class="row" *ngFor="let movie of movies">
-            <div class="col-md-12">
+            <div *ngIf="movie" class="col-md-12">
                 <div class="list-group list">
                     <a class="list-group-item">
                         <div class="col-md-10">
@@ -14,9 +14,10 @@
                             </p>
                             <p class="list-group-item-text title">
                                 <b>PEGI: </b> {{movie.pegi}}</p>
-                            <p class="list-group-item-text title">
+                            <p *ngIf="movie.category" class="list-group-item-text title">
                                 <b>Kategoria: </b> {{movie.category.name}}</p>
-                            <p class="list-group-item-text title" *ngIf=" (showMovieDescription) && lastMovieClicked === movie.id">
+                            <p class="list-group-item-text title"
+                                *ngIf=" (showMovieDescription) && lastMovieClicked === movie.id">
                                 <b>Opis filmu: </b>
                                 {{movie.description}}</p>
                         </div>
