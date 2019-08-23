@@ -12,7 +12,7 @@ import { RepertoireComponent } from "./cinema/repertoire/repertoire.component";
 import { MoviesComponent } from "./cinema/movies/movies.component";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-
+import { CookieService } from "ngx-cookie-service";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -29,7 +29,7 @@ import { HttpClientModule } from "@angular/common/http";
       { path: "repertoire", component: RepertoireComponent }
     ])
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

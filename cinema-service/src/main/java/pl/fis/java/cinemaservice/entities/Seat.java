@@ -1,5 +1,7 @@
 package pl.fis.java.cinemaservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -21,6 +23,7 @@ public class Seat
 	@NotNull(message = "hall cannot be empty")
 	@ManyToOne
 	@JoinColumn(name = "hall_id")
+	@JsonBackReference
 	private Hall hall;
 
 	public Long getId()

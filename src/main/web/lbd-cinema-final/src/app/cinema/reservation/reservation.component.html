@@ -1,0 +1,21 @@
+<div class="container">
+
+    <!--screen here-->
+
+    <div class="row" *ngFor="let row of rows">
+    <div class="row" *ngFor="let column of columns">
+      <div class="col-md-3">
+        <ul class="list-group">
+          <button class="list-group-item" (click)="onSelectedSeat(seat)" style="width:600px"> 
+              {{seat.row}}{{seat.column}}
+            </button>
+              <!---->
+              <div *ngIf="selectedSeat && selectedSeat.id === seat.id">
+                  <div class="button free"></div>
+              </div>
+
+        </ul>
+      </div>
+    </div>
+    <button class="btn btn-success" (click)="reserveSeats(selectedSeats)" style="margin-left: 20px;">Next</button>
+</div>

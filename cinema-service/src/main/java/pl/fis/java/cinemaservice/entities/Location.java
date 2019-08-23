@@ -1,6 +1,10 @@
 package pl.fis.java.cinemaservice.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.rest.core.annotation.RestResource;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -23,7 +27,8 @@ public class Location {
     @NotNull(message = "latitude cannot be empty")
     private Double latitude;
 
-    @OneToOne(mappedBy = "location", cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "location")
+    @JsonManagedReference
     private Cinema cinema;
 
     public Cinema getCinema() {

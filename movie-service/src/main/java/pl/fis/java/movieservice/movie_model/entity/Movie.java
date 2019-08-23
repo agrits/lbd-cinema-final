@@ -36,7 +36,7 @@ public class Movie {
     @NotBlank(message = "{rating.notblank}")
     private String rating;
 
-    @RestResource(exported = false)
+    //@RestResource(exported = false)
     @ManyToOne
     @JoinColumn(name = "category_id")
     @NotNull(message = "{category.notnull}")

@@ -1,29 +1,61 @@
-import { Category } from "../category/category";
+import { Category } from '../category/category';
+import { LinkHelper } from 'src/app/data-services/link-helper';
+
+export interface GetMoviesResponse {
+  _embedded: {
+    movies: MovieAttrs[];
+  };
+}
 
 export interface MovieAttrs {
-  id: number;
   title: string;
   duration: number;
   rating: number;
   pegi: string;
-  category: Category;
   description: string;
+  _links: {
+    self: {
+      href: string;
+    };
+    movie: {
+      href: string;
+    };
+    category: {
+      href: string;
+    };
+  };
 }
+
+
 export class Movie {
-  id: number;
+  id: Number;
   title: string;
   duration: number;
   rating: number;
   pegi: string;
-  category: Category;
   description: string;
-  constructor(attrs: Partial<MovieAttrs> = {}) {
-    this.id = attrs.id;
+  category: Category;
+  _links: {
+    self: {
+      href: string;
+    };
+    movie: {
+      href: string;
+    };
+    category: {
+      href: string;
+    };
+  };
+
+
+  constructor(
+    attrs: Partial<MovieAttrs>) {
     this.title = attrs.title;
     this.duration = attrs.duration;
     this.rating = attrs.rating;
     this.pegi = attrs.pegi;
-    this.category = attrs.category;
+    this._links = attrs._links;
     this.description = attrs.description;
+    this.id = LinkHelper.getIdFromSelfHref(this._links.self.href);
   }
 }

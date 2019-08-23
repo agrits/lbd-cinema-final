@@ -1,12 +1,14 @@
 package pl.fis.java.reservationservice.seat.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.hateoas.ResourceSupport;
 
-public class Seat extends ResourceSupport {
+
+public class Seat{
 
     @JsonProperty
-    private Hall hall;
+    private Long id;
 
     @JsonProperty
     private Integer row;
@@ -17,13 +19,12 @@ public class Seat extends ResourceSupport {
     @JsonProperty
     private Boolean available = false;
 
-
-    public Hall getHall() {
-        return hall;
+    public Long getId() {
+        return id;
     }
 
-    public void setHall(Hall hall) {
-        this.hall = hall;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Integer getRow() {
