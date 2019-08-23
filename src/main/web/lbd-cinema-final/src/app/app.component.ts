@@ -26,6 +26,12 @@ export class AppComponent {
   ngOnInit() {
     this.getCities();
     this.setUpChosenCity();
+    this.setUsername();
+  }
+  private setUsername() {
+    this.userName = JSON.parse(
+      this.cookieService.get("userCookie")
+    ).body.firstName;
   }
   private logoutUser() {
     this.cookieService.delete("userCookie");
