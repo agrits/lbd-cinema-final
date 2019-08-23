@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Show, GetShowsResponse } from 'src/app/data-entity/show/show';
-import { timeout } from 'rxjs/operators';
+import { timeout, groupBy } from 'rxjs/operators';
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
@@ -16,7 +16,7 @@ export class ShowService extends DefaultService{
   getLocalizations(): Observable<Show[]> {
     return this.httpClient
     .get<GetShowsResponse>(this.localizationUrl).pipe(
-      map(x => x._embedded.shows.map(x=> new Show(x))));
+      map(x => x._embedded.shows.map(x=> new Show(x))))
     /*.get<LocalizationAttrs[]>(this.localizationUrl)
       .pipe(
         map(data => data.map(data => new Localization(data)))

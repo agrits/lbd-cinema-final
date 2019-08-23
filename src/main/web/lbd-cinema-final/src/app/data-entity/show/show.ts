@@ -47,6 +47,7 @@ export class Show {
     constructor(showAttribtes: Partial<ShowAttributes>) {
         //this.id = showAttribtes.id;
         this.hall_id = showAttribtes.hall_id;
+        this.movie_id = showAttribtes.movie_id;
         this.time = showAttribtes.time;
         this.language = showAttribtes.language;
         this.threeD = showAttribtes.threeD;

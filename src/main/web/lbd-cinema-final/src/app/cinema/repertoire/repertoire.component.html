@@ -5,15 +5,15 @@
 </div>
 
 <div id="">
-    <div class="container">
+    <div class="container" *ngIf="movies">
         <div class="row" *ngFor="let show of shows">
             <div class="col-md-12">
                 <div class="list-group list">
                     <a class="list-group-item">
                         <div class="col-md-10">
-                            {{show.id}}{{show.movie_id}} {{show.language}}
+                            {{show.id}} {{show.language}} {{ show.title | uppercase}}
                         </div>
-                        <div class="col-md-2">
+                        <!-- <div class="col-md-2">
                             <div class="expertise">
                                 <div class="read-more">
                                     <button type="button" class="btn btn-primary btn-more"
@@ -21,7 +21,7 @@
                                             class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="clearfix"></div>
                     </a>
                 </div>

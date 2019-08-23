@@ -17,8 +17,9 @@ export class MoviesService extends DefaultService {
   }
 
   getMovie(param: string): Observable<Movie>{
-    return this.httpClient.get<Movie>("http://localhost:8080/api/movie/movies"+param).pipe(
+    return this.httpClient.get<Movie>("http://localhost:8080/api/movie/movies/"+param).pipe(
       map(x => new Movie(x))
+      
     )
   }
 }
