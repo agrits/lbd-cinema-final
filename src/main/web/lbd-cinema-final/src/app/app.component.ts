@@ -34,18 +34,12 @@ export class AppComponent {
       );
     });
     sessionStorage.setItem("chosenCity", JSON.stringify(this.chosenCity));
-    console.log(
-      JSON.parse(this.cookieService.get("userCookie")).body.firstName
-    );
-    this.userName = JSON.parse(
-      this.cookieService.get("userCookie")
-    ).body.firstName;
     //this.getDefaultCity(this.longtitude, this.lattitude);
   }
-  logoutUser() {
+  private logoutUser() {
     this.cookieService.delete("userCookie");
   }
-  cityClicked(event) {
+  private cityClicked(event) {
     this.chosenCity = event.target.innerText;
   }
 
