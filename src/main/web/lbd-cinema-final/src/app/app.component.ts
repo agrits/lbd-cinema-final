@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { localizationService } from "./data-services/localization/localization.service";
 import { Localization } from "./data-entity/localization/localization";
 import { Subscription } from "rxjs";
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: "app-root",
@@ -21,7 +21,7 @@ export class AppComponent {
 
   constructor(
     private localizationService: localizationService,
-     private cookieService: CookieService
+    private cookieService: CookieService
   ) {}
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class AppComponent {
         "lattitude: " + this.lattitude + " longtitude: " + this.longtitude
       );
     });
-
+    sessionStorage.setItem("chosenCity", JSON.stringify(this.chosenCity));
     //this.getDefaultCity(this.longtitude, this.lattitude);
   }
 
