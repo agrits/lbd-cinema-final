@@ -5,7 +5,7 @@
                 <div class="list-group list">
                     <a class="list-group-item">
                         <div class="col-md-10">
-                            <h4 class="list-group-item-heading name">{{movie.title}}</h4>
+                            <h4 class="list-group-item-heading name">{{movie.title | titlecase}}</h4>
                             <p class="list-group-item-text title">
                                 <b>Długość filmu:</b> {{movie.duration}} minut
                             </p>
@@ -15,7 +15,7 @@
                             <p class="list-group-item-text title">
                                 <b>PEGI: </b> {{movie.pegi}}</p>
                             <p *ngIf="movie.category" class="list-group-item-text title">
-                                <b>Kategoria: </b> {{movie.category.name}}</p>
+                                <b>Kategoria: </b> {{movie.category.name | titlecase }}</p>
                             <p class="list-group-item-text title"
                                 *ngIf=" (showMovieDescription) && lastMovieClicked === movie.id">
                                 <b>Opis filmu: </b>
