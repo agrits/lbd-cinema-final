@@ -15,4 +15,10 @@ export class MoviesService extends DefaultService {
         map(embedded => embedded._embedded.movies.map(movieAttrs => new Movie(movieAttrs)))
       )
   }
+
+  getMovie(param: string): Observable<Movie>{
+    return this.httpClient.get<Movie>("http://localhost:8080/api/movie/movies"+param).pipe(
+      map(x => new Movie(x))
+    )
+  }
 }

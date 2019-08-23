@@ -1,5 +1,31 @@
 <div id="content">
-        <div class="container">
-            <h3>Repertoire works!</h3>
+    <div class="container">
+        <h3>Repertoire works!</h3>
+    </div>
+</div>
+
+<div id="">
+    <div class="container">
+        <div class="row" *ngFor="let show of shows">
+            <div class="col-md-12">
+                <div class="list-group list">
+                    <a class="list-group-item">
+                        <div class="col-md-10">
+                            {{show.id}}{{show.movie_id}} {{show.language}}
+                        </div>
+                        <div class="col-md-2">
+                            <div class="expertise">
+                                <div class="read-more">
+                                    <button type="button" class="btn btn-primary btn-more"
+                                        (click)="movieDescriptionOnClick(movie)">Opis filmu &nbsp; <i
+                                            class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+</div>
