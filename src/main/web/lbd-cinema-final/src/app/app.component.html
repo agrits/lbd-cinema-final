@@ -13,7 +13,8 @@
           <span class="glyphicon glyphicon-map-marker"></span> {{chosenCity}} <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li>
-            <option *ngFor="let city of cities" [ngValue]="city" (click)="cityClicked($event)"> {{city.city}}</option>
+            <option *ngFor="let city of cities" [ngValue]="city" (click)="cityClicked($event)">{{city.city}}
+            </option>
           </li>
         </ul>
       </li>
