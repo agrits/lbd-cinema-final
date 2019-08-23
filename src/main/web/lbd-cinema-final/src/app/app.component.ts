@@ -18,7 +18,7 @@ export class AppComponent {
   chosenCity: string = "Gliwice";
   longtitude: string;
   lattitude: string;
-
+  userName: string;
   constructor(
     private localizationService: localizationService,
     private cookieService: CookieService
@@ -34,9 +34,17 @@ export class AppComponent {
       );
     });
     sessionStorage.setItem("chosenCity", JSON.stringify(this.chosenCity));
+    console.log(
+      JSON.parse(this.cookieService.get("userCookie")).body.firstName
+    );
+    this.userName = JSON.parse(
+      this.cookieService.get("userCookie")
+    ).body.firstName;
     //this.getDefaultCity(this.longtitude, this.lattitude);
   }
-
+  logoutUser() {
+    this.cookieService.delete("userCookie");
+  }
   cityClicked(event) {
     this.chosenCity = event.target.innerText;
   }
