@@ -1,0 +1,9 @@
+.button.taken {
+    color: red;
+}
+.button.free {
+    color: green;
+}
+.button.selected {
+    color: yellow;
+}
