@@ -16,8 +16,7 @@ export class AppComponent {
   subscribedDefaultCity: Subscription;
   title = "FIS-SST Cinema";
   chosenCity: string = "Gliwice";
-  longtitude: string;
-  lattitude: string;
+
   userName: string;
   constructor(
     private localizationService: localizationService,
@@ -26,29 +25,28 @@ export class AppComponent {
 
   ngOnInit() {
     this.getCities();
-    this.localizationService.getPosition().then(position => {
-      this.longtitude = `${position.lng}`;
-      this.lattitude = `${position.lat}`;
-      console.log(
-        "lattitude: " + this.lattitude + " longtitude: " + this.longtitude
-      );
-    });
-    sessionStorage.setItem("chosenCity", JSON.stringify(this.chosenCity));
-    console.log(
-      JSON.parse(this.cookieService.get("userCookie")).body.firstName
-    );
-    this.userName = JSON.parse(
-      this.cookieService.get("userCookie")
-    ).body.firstName;
-    //this.getDefaultCity(this.longtitude, this.lattitude);
+    this.setUpChosenCity();
   }
-  logoutUser() {
+  private logoutUser() {
     this.cookieService.delete("userCookie");
   }
-  cityClicked(event) {
+  private cityClicked(event) {
     this.chosenCity = event.target.innerText;
   }
+  setUpChosenCity() {
+    let longtitude: string;
+    let lattitude: string;
+    this.localizationService.getPosition().then(position => {
+      longtitude = `${position.lng}`;
+      lattitude = `${position.lat}`;
+    });
 
+    this.getDefaultCity(longtitude, lattitude);
+    if (this.city) {
+      this.chosenCity = this.city.city;
+    }
+    sessionStorage.setItem("chosenCity", JSON.stringify(this.chosenCity));
+  }
   getCities() {
     this.subscribedCities = this.localizationService
       .getLocalizations()
