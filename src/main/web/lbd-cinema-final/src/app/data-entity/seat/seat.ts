@@ -11,4 +11,11 @@ export class Seat {
     row: number;
     column: number;
     available: boolean;
+
+    constructor(attrs: Partial<SeatAttrs> = {}) {
+        this.id = attrs.id;
+        this.row = attrs.row
+        this.column = attrs.column;
+        this.available = attrs.available;
+      }
 }
