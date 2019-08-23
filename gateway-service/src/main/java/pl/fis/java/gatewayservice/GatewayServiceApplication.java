@@ -1,17 +1,15 @@
 package pl.fis.java.gatewayservice;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
-import pl.fis.java.gatewayservice.filters.PostFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import pl.fis.java.gatewayservice.filters.AuthorizedFilter;
+import pl.fis.java.gatewayservice.filters.PostFilter;
 import pl.fis.java.gatewayservice.filters.PreFilter;
 
 @SpringBootApplication
@@ -31,6 +29,13 @@ public class GatewayServiceApplication {
 	public PostFilter postFilter() {
 		return new PostFilter();
 	}
+
+	@Bean
+	public AuthorizedFilter authorizedFilter(){
+		return new AuthorizedFilter();
+	}
+
+	@Bean
 	public CorsFilter corsFilter() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
